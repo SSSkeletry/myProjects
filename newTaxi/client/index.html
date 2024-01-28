@@ -1,0 +1,147 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi</title>
+  
+  <!--css-->
+  <link rel="stylesheet" type="text/css" href="css/main-menu.css">
+
+  <!--box icons-->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+  <!--google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,600;0,900;1,700&family=Roboto&family=Rubik:wght@500;600&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+  <header id="header" class="lock-padding navbar">
+      <a href="#" class="logo"><img src="image/logo.png" width="15%"></a>
+      <ul class="navigation">
+          <li> <a href="links/dispatcher.html">Диспетчеру</a></li>
+          <li  onclick="scrollToSection('info-section')"> <a href="#">Клієнтам</a></li>
+          <li onclick="scrollToSection('driver-section')"> <a href="#">Водіям</a></li>
+          <li onclick="scrollToSection('aboutUs-section')"> <a href="#">Про нас</a></li>
+      </ul>
+      
+      <div class="bx bx-menu" id="menu-icons" ></div>
+  </header>
+  
+  <section class="mainmenu-sect"> 
+      <img src="image/taxi-background.png" class="background-taxi-img">
+    <div class="description-near-taxi reveal"> 
+        <h1>Сервіс для замовлення таксі</h1>
+        <h2>Швидке довезення по всій Україні!</h2>
+        <a href="#popup"><button><span>Замовити таксі</span></button></a>
+    </div>
+    <div id="popup" class="popup">
+      <a href="#header" class="popup-area"></a>
+      <div class="popup-body">
+            <div class="popup-cont">
+                   <a href="#header" class="popup-close">X</a>
+                    <h1 class="order-header">Замовлення таксі</h1>
+                      <div class="order-data">
+                      <input type="number" id="number" required>
+                      <div class="label-box">
+                        <label>Введіть номер телефону</label>
+                      </div>
+                      <input id="loc" required>
+                      <div class="label-box">
+                        <label>Місцезнаходження</label>
+                      </div>
+                      <input id="arrival" required>
+                      <div class="label-box">
+                        <label>Місцеприбуття</label>
+                      </div>
+                      <input id="comment" required>
+                      <div class="label-box">
+                        <label>Коментарі для таксиста</label>
+                      </div>
+                      <div>
+                        <button id="submit">Підтвердити</button>
+                      </div>
+                      <div id="shadow"></div>
+                      <div id="notfill"><i class='bx bxs-x-circle'></i>Будь ласка, заповніть усі поля!</div>
+                      <div id="filled">Дякую що обрали нас! Очікуйте дзвінка! </div>
+                    </div>
+                </div>
+        </div>  
+      </div>
+  </section>
+  
+  <section class="client-sect reveal">
+    <div class="image-section" id="info-section">
+      <div class="image">
+          <img src="image/order.png" alt="Изображение 1">
+          <p>Замовлення таксі</p>
+      </div>
+      <div class="arrow">
+        <i class='bx bxs-caret-right-circle' ></i>
+    </div>
+      <div class="image">
+          <img src="image/drive.png" alt="Изображение 2">
+          <p>Швидке довезення</p>
+      </div>
+      <div class="arrow">
+        <i class='bx bxs-caret-right-circle' ></i>
+    </div>
+      <div class="image">
+          <img src="image/money.png" alt="Изображение 3">
+          <p>Оплата готівкою або карткою</p>
+      </div>
+      <div class="arrow">
+        <i class='bx bxs-caret-right-circle' ></i>
+    </div>
+      <div class="image">
+        <img src="image/rate.jpg" alt="Изображение 3">
+        <p>Оцінка таксиста</p>
+    </div> 
+  </div>
+  </section>
+    
+  <section class="driver-sect" id="driver-section">
+    <div class="taxi-driver">
+        <h1>Робота водієм</h1>
+        <div id="taxiDriver">
+          <p>Бонуси та переваги: Ми надаємо різні бонуси та переваги, включаючи страхування, відпустку та інше.</p>
+          <p>Відмінна репутація: Наша компанія відома своєю високою якістю обслуговування та надійністю.</p>
+          <p>Гнучкий графік роботи: У нас ви маєте можливість обирати графік роботи, який вам підходить.</p>
+          <p>Висока оплата: Наша компанія пропонує одні з найвигідніших тарифів у галузі таксі.</p>
+          <p>Технічна підтримка: Наша компанія гарантує безперебійну технічну підтримку.</p>
+          <p>Клієнтська база: Ми маємо велику та постійно ростучу клієнтську базу.</p>
+        </div>
+    </div>
+    <div class="image-driver">
+      <img src="image/driver.jpg">
+   </div>
+  </section>
+  
+  <section class="aboutUs-sect" id="aboutUs-section">
+    <div class="image-aboutUs">
+      <img src="image/aboutUs.jpg">
+   </div>
+    <div class="aboutUs-content">
+        <h1>Про нас</h1>
+        <div id="aboutUsContent">
+          <p>Ласкаво просимо до нашої служби таксі, де ваша зручність та безпека завжди на першому місці! Ми - команда професіоналів, які завжди на зв'язку і готові забезпечити вам найкращий транспортний досвід.</p>
+          <h1>Наша Місія</h1>
+          <p>Наші водії - це не просто водії, це професіонали, які проходять строгий відбір і навчання, щоб гарантувати вашу безпеку та комфорт під час подорожі. Вони завжди доброзичливі, допоможуть з багажем і знають місто, як свої п'ять пальців.</p>
+          <h1>Наші Автомобілі</h1>
+          <p>Наш автопарк складається з сучасних автомобілів, обладнаних найновішими технологіями безпеки та зручності. Ми піклуємося про екологію і використовуємо тільки автомобілі з низьким рівнем викидів.</p>
+          <h1>Наші Послуги</h1>
+          <p>Незалежно від того, чи ви подорожуєте для бізнесу, відвідуєте родичів чи просто переїжджаєте по місту, ми завжди готові надати вам найкращий сервіс таксі. Ми пропонуємо різні види послуг, включаючи міські поїздки, аеропортовий трансфер та багато іншого.</p>
+          <h1>Зв'яжіться з Нами</h1>
+          <p>Ми завжди на зв'язку. Звертайтеся до нас в будь-який час, і ми гарантуємо, що ви отримаєте відповідь від нашої дружньої та професійної служби підтримки.</p>
+        </div>
+    </div>
+</section>
+  <!-- scroll-->
+  <script src="https://unpkg.com/scrollreveal"></script>
+
+  <!--js-->
+  <script src="main.js"></script>
+  
+</body>
+</html>
