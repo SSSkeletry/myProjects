@@ -53,6 +53,7 @@ const Order = sequelize.define('order',{
     complete: {type: DataTypes.STRING}
 })
 
+//---------Connections--------//
 Car.hasMany(Driver);
 Driver.belongsTo(Car)
 
