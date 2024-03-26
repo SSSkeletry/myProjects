@@ -49,10 +49,11 @@ const Order = sequelize.define('order',{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     start_time: {type: DataTypes.DATE},
     end_time: {type: DataTypes.DATE},
-    trip_rate: {type: DataTypes.DATE},
+    trip_rate: {type: DataTypes.CHAR},
     complete: {type: DataTypes.STRING}
 })
 
+//---------Connections--------//
 Car.hasMany(Driver);
 Driver.belongsTo(Car)
 
