@@ -18,7 +18,6 @@ const CarInfo = sequelize.define('car_info',{
     number_car: {type: DataTypes.STRING, primaryKey: true, allowNull:false},
     title: {type: DataTypes.STRING, allowNull:false},
     description: {type: DataTypes.STRING, allowNull:false}
-    
 })
 const Driver = sequelize.define('driver',{
     email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
