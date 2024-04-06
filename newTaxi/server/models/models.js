@@ -15,10 +15,9 @@ const Car = sequelize.define('car',{
     img: {type: DataTypes.STRING,allowNull:false}
 })
 const CarInfo = sequelize.define('car_info',{
-    car_number: {type: DataTypes.STRING, primaryKey: true, allowNull:false},
+    number_car: {type: DataTypes.STRING, primaryKey: true, allowNull:false},
     title: {type: DataTypes.STRING, allowNull:false},
     description: {type: DataTypes.STRING, allowNull:false}
-    
 })
 const Driver = sequelize.define('driver',{
     email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
@@ -57,8 +56,8 @@ Order.belongsTo(User);
 Order.belongsTo(Driver);
 Order.belongsTo(Dispatcher);
 
-Car.hasMany(CarInfo, {foreignKey: 'car_number', as: 'info'});
-CarInfo.belongsTo(Car,{ foreignKey: 'car_number', targetKey: 'number_car' });
+Car.hasMany(CarInfo, {foreignKey: 'number_car', as: 'info'});
+CarInfo.belongsTo(Car,{ foreignKey: 'number_car' });
 
 module.exports = {
     User,
