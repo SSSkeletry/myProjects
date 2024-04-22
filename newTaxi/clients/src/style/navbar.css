@@ -1,0 +1,81 @@
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    font-size: 30px;
+    z-index: 1;
+    width: 50px; 
+    height: 50px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #ffffff;
+    transition: left 0.3s ease, color 0.3s ease; /* Анимація для властивості right */
+  }
+  .menu-button:hover {
+    color: #012a46; /* Колір тексту при наведенні */
+    
+  }
+  .menu-button::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* Колір кола */
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+  .menu-button:hover::before {
+    transform: scale(1); /* При наведенні коло збільшується до повного розміру */
+  }
+  .navigation {
+    transition: transform 0.6s ease;
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .nav-list {
+    list-style: none;
+    padding: 2%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .nav-item {
+    margin: 0 40px; /* Регулювання відстані між елементами */
+  }
+  
+  .nav-item a {
+    text-decoration: none;
+    color: white; /* Регулювання кольору тексту */
+    padding: 10px 15px;
+    font-size: 1.5vw;
+    border-radius: 20px; /* Встановлюємо початковий радіус заокруглення */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .nav-item a:hover {
+    transition: all 0.3s ease;
+    background-color: rgb(255, 255, 255); /* Регулювання кольору при наведенні */
+    border-radius: 20px;
+    color:#012a46;
+  }
+  .navigation.hide {
+    transform: translateY(-100%); /* Зсуваємо навігаційне меню вгору на всю його висоту */
+    transition: transform 0.6s ease;
+  }
+  
+  .menu-button.move-left {
+    left: 94%;
+  }
