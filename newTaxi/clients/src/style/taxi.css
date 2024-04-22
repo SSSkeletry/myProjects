@@ -1,0 +1,275 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    
+}
+.main{
+    width: 100%; 
+    height: 100%;
+    background-image: url('../assets/main-page.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    top: 0;
+    left: 0;
+}
+.main-text{
+    position: absolute; 
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 30%;
+    height:40%;
+    overflow: hidden; /* Приховує вміст, що виходить за межі */
+    text-overflow: ellipsis; 
+    word-wrap: break-word;
+    text-align: center;
+    
+}
+.main-text h1{
+    white-space: nowrap;
+    padding-left:3%;
+    max-width: 90%; 
+    font-weight: 700;
+    color:#012a46;
+    font-size: 5vw;
+    margin-bottom:20px
+}
+.main-text h2{
+
+  font-weight: 700;
+  color:#012a46;
+  font-size: 10px;
+  white-space: normal; /* Дозволяє тексту переходити на новий рядок */
+  word-wrap: break-word; /* Переносить довгі слова на новий рядок, якщо вони не поміщаються в один рядок */
+  text-align:center;
+  font-size: 1.2vw;
+}
+
+/*-------------------PopUp--------------------*/
+input::placeholder {
+    opacity: 0;
+  }
+  
+ /* Приховує плейсхолдер тільки для конкретних інпутів */
+  #loc::placeholder, #arrival::placeholder {
+    opacity: 0;
+  }
+  html {
+    scrollbar-width: none; /* Для Firefox */
+    -ms-overflow-style: none; /* Для Internet Explorer и Edge */
+  }
+  
+  html::-webkit-scrollbar {
+    display: none; /* Для Chrome, Safari и Opera */
+  }
+  body.no-scroll {
+    overflow: hidden;
+  }
+    .popup{
+      position:fixed;
+      z-index: 1;
+      width:100%;
+      height:100%;
+      background-color: #000000b2;
+      top:0;
+      left:0;
+      opacity:0;
+      visibility: hidden;
+      transition: all 0.8s ease 0s;
+    }
+    .popup:target{
+      opacity:1;
+      visibility:visible;
+    }
+    .popup-body{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content: center;
+      padding:10px 10px;
+    }
+    .popup:target .popup-cont{
+      animation: appearancePopUp 2s 1;
+      opacity: 1;
+    }
+    .popup-cont{
+      background-color: #fff;
+      color: black;
+      max-width: 800px;
+      padding:45px 45px 15px;
+      position: relative;
+      transition: all 0.8s ease 0s;
+      opacity: 0;
+      
+    }
+    .popup-close{
+      position: absolute;
+      right:10px;
+      top:10px;
+      font-size:20px;
+      color: black;
+      text-decoration: none;
+    }
+    .order-header{
+      font-size:35px;
+      padding:2;
+      margin-bottom: 20px;
+    }
+    .order-data div{
+      margin-bottom: 30px;
+    }
+    .popup-area{
+      position: absolute;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      
+    }
+    .popup button{
+      text-decoration: none;
+      display: inline;
+      line-height: 40px;
+      padding: 0px 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size:18px;
+      border-radius: 10px;
+      top:0;
+      position: relative;
+      color: white;
+      background-color: black;
+      box-shadow: 0 5px 0px white;
+      transition-duration: 0.5s;
+    }
+    .popup button:hover{
+      top:2px;
+      color:black;
+      box-shadow: 0 3px 0px black;
+      background-color: rgba(0, 255, 255, 0.689);
+    }
+    .popup-fill{
+      z-index: 1;
+      position: relative;
+      background-color: black;
+    }
+    @keyframes appearancePopUp {
+      0% {
+        -webkit-transform: scale(0.5, 0.5);
+        transform: scale(0.5, 0.5)
+      }
+      50% {
+        -webkit-transform: scale(1.0, 1.0);
+        transform: scale(1.0, 1.0);
+      }
+    }
+    .label-box input {
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+      font-size: 18px;
+      border: none;
+      border-bottom: 1px solid #757575;
+  }
+  .label-box label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 18px;
+      pointer-events: none;
+      color: #757575;
+      transition: 0.2s ease all;
+      transform: translateY(0px);
+  }
+  .label-box input:focus + label,
+  .label-box input:valid + label {
+      font-size: 14px;
+      transform: translateY(-20px);
+  }
+    .label-box {
+      position: relative;
+      width: 270px;
+    }
+    #shadow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0.3;
+      display: none;
+    }
+    #notfill {
+      position: absolute;
+      top: 40%;
+      left: 10%;
+      right: 10%;
+      background: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      display: none;
+      text-align: center;
+      animation: appearancePopUp 2s 1;
+      box-shadow: 0 3px 0px red;
+    }
+    #filled {
+      position: absolute;
+      top: 40%;
+      left: 10%;
+      right: 10%;
+      background: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      display: none;
+      text-align: center;
+      animation: appearancePopUp 2s 1;
+      box-shadow: 0 3px 0px rgb(0, 150, 0);
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    .main-text button {
+      border-radius: 1vw;
+      background-color: #012a46;
+      border: none;
+      color: white;
+      text-align: center;
+      font-size: 1.3vw;
+      padding: 1vw;
+      width: 15vw;
+      transition: all 0.5s;
+      cursor: pointer;
+    
+    }
+    .main-text button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+    .main-text button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+    
+    .main-text button:hover span {
+      padding-right: 25px;
+    }
+    
+    .main-text button:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+    
+  
