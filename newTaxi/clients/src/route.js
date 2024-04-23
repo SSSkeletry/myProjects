@@ -41,7 +41,14 @@ export const pubRoutes = [
 ]
 
 export const DispatcherRoutes = [
-    
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile,
+    },
+    {
+        path: ORDER_ROUTE,
+        Component: Order,
+    },
 ]
 
 export const driverRoutes = [

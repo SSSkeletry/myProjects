@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
-import { authRoutes, pubRoutes } from '../route';
+import { authRoutes,DispatcherRoutes, pubRoutes } from '../route';
 import { Context } from '..';
 
 const AppRoute = () => {
