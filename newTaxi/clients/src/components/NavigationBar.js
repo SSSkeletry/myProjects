@@ -2,10 +2,15 @@ import React, { useContext } from 'react';
 import { Context } from '..';
 import '../style/navbar.css';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 const NavigationBar = observer(() => {
     const { user } = useContext(Context);
-    
+    const navigate = useNavigate(); // Hook for navigation
+
+    const handleLoginNavigation = () => {
+        navigate('/login'); // Use navigate instead of push
+    };
     return (
         user.isAuth ? (
             <div>
@@ -36,10 +41,10 @@ const NavigationBar = observer(() => {
                 <div id="menu-button" className="menu-button">☰</div>
                 <nav id="navigation" className="navigation">
                     <ul className="nav-list">
-                        <li className="nav-item"><a href="#">Design</a></li>
-                        <li className="nav-item"><a href="#">Company</a></li>
-                        <li className="nav-item"><a href="#">Contact</a></li>
-                        <li className="nav-item"><a href="#">Авторизація</a></li>
+                        <li className="nav-item"><a>Design</a></li>
+                        <li className="nav-item"><a>Company</a></li>
+                        <li className="nav-item"><a>Contact</a></li>
+                        <li className="nav-item"onClick={handleLoginNavigation}><a>Авторизація</a></li>
                     </ul>
                 </nav>
             </div>
