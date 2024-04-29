@@ -35,7 +35,6 @@ body{
         max-width: 50%; /* Максимальная ширина контейнера */
         min-width: 50%; /* Минимальная ширина контейнера */
 }
-  
   .round-input{
     width: 30vw;
     padding: 1vw;
@@ -54,13 +53,13 @@ body{
     color: #9bb7cb;
   }
   .round-button {
-    font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.2vw;
     width: 44%;
     padding: 1vw;
     border: 2px solid transparent; /* Упростил, убрав #ccc */
     border-radius: 30px;
     outline: none;
+    transition: background-color 0.4s, color 0.4s,text-shadow 0.3s;
   }
   .button-container {
     display: flex;
@@ -74,7 +73,6 @@ body{
     padding-right: 4vw;
     
 }
-
 .button-right {
     background-color: #81adde;
     margin-left: -20px; /* Отрицательный отступ для перекрытия кнопок */
@@ -88,11 +86,14 @@ body{
     padding-right: 4vw;
     
 }
-
+.round-button:hover {
+  text-shadow: 0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.5); /* Добавление тени при наведении курсора */
+}
 .button-right-reg {
     background-color: #fade71;
     margin-left: -20px; /* Отрицательный отступ для перекрытия кнопок */
     text-align:right;
+    padding-right:1.5vw;
 }
 .round-input::placeholder {
   color: #9bb7cb;

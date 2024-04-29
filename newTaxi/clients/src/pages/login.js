@@ -8,10 +8,11 @@ const Login = () => {
     const isLogin = location.pathname === LOGIN_ROUTE;
 
     const [emailOrPhone, setEmailOrPhone] = useState('');
-    const [phone, setPhone] = useState(''); // Добавленное объявление
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -26,6 +27,7 @@ const Login = () => {
         }
     };
 
+    
     return (
         <div className="auth">
             <div className="input-container">
@@ -48,7 +50,7 @@ const Login = () => {
                 )}
                 <input
                     type={showPassword ? "text" : "password"}
-                    className="round-input"
+                    className="round-input animated-input"
                     placeholder="Пароль"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
@@ -59,16 +61,16 @@ const Login = () => {
                     </span>
                 </div>
                 <div className="button-container">
-                    <button type="submit" className="round-button button-left" onClick={handleAuth}>
+                    <button type="submit" className={isLogin ? "round-button button-left" : "round-button button-left-reg"} onClick={handleAuth}>
                         {isLogin ? 'Авторизуватися' : 'Зареєструватися'}
                     </button>
                     {isLogin ? (
                         <button className="round-button button-right">
-                          <NavLink to={REGISTRATION_ROUTE}>Реєстрація</NavLink>
+                            <NavLink to={REGISTRATION_ROUTE} style={{ textDecoration: 'none', color: 'inherit' }}>Реєстрація</NavLink>
                         </button>
                     ) : (
-                        <button className="round-button button-right">
-                          <NavLink to={LOGIN_ROUTE}>Увійти</NavLink>
+                        <button className="round-button button-right-reg">
+                            <NavLink to={LOGIN_ROUTE} style={{ textDecoration: 'none', color: 'inherit' }}>Увійти</NavLink>
                         </button>
                     )}
                 </div>

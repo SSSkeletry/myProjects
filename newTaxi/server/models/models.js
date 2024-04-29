@@ -2,9 +2,11 @@ const sequelize = require('../database')
 const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user',{
-    email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
+    email: {type: DataTypes.STRING,unique: true,allowNull:false},
     password: {type: DataTypes.STRING},
-    phone: {type: DataTypes.CHAR,unique: true},
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },  
+    phone: {type: DataTypes.CHAR,primaryKey: true,unique: true},
     role: {type: DataTypes.STRING,defaultValue: 'USER'}
 })
 
@@ -20,18 +22,24 @@ const CarInfo = sequelize.define('car_info',{
     description: {type: DataTypes.STRING, allowNull:false}
 })
 const Driver = sequelize.define('driver',{
-    email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
+    email: {type: DataTypes.STRING,unique: true,allowNull:false},
     password: {type: DataTypes.STRING},
-    phone: {type: DataTypes.CHAR,unique: true},
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },  
+    phone: {type: DataTypes.CHAR,primaryKey: true,unique: true},
     rating: {type: DataTypes.CHAR},
+    verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     role: {type: DataTypes.STRING,defaultValue: 'DRIVER'}
 })
 
 const Dispatcher = sequelize.define('dispatcher',{
-    email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
+    email: {type: DataTypes.STRING,unique: true,allowNull:false},
     password: {type: DataTypes.STRING},
-    phone: {type: DataTypes.CHAR,unique: true},
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },  
+    phone: {type: DataTypes.CHAR,unique: true,primaryKey: true,unique: true},
     warning: {type: DataTypes.CHAR},
+    verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     role: {type: DataTypes.STRING,defaultValue: 'DISPATCHER'}
 })
 const Order = sequelize.define('order',{

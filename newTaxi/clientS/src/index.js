@@ -5,9 +5,8 @@ import UserTaxi from './main/userTaxi';
 import DriverTaxi from './main/driverTaxi';
 
 export const Context = createContext(null);
-
+console.log(process.env.REACT_APP_API_URL);
 const root = createRoot(document.getElementById('root'));
-
 root.render(
   <Context.Provider value={{
     user: new UserTaxi(),
