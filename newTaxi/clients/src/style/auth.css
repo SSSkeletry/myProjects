@@ -19,7 +19,7 @@ body{
 }
 .auth h1{
     margin-left:2%;
-    padding-top:9%;
+    padding-top:8%;
     text-align: center;
     background: linear-gradient(to bottom, white 70%, #7facdd 100%);
     -webkit-background-clip: text;
@@ -56,19 +56,19 @@ body{
     font-size: 1.2vw;
     width: 44%;
     padding: 1vw;
-    border: 2px solid transparent; /* Упростил, убрав #ccc */
+    border: 2px solid transparent;
     border-radius: 30px;
     outline: none;
     transition: background-color 0.4s, color 0.4s,text-shadow 0.3s;
   }
   .button-container {
     display: flex;
-    justify-content: center; /* Распределяет кнопки равномерно в контейнере */
+    justify-content: center;
 }
 .button-left {
     background-color: #fade71;
-    z-index: 2; /* Устанавливаем z-index выше, чтобы левая кнопка перекрывала правую */
-    margin-right: -13vw; /* Отрицательный отступ для перекрытия кнопок */
+    z-index: 2;
+    margin-right: -13vw;
     text-align:right;
     padding-right: 4vw;
     
@@ -80,24 +80,24 @@ body{
 }
 .button-left-reg {
     background-color: #81adde;
-    z-index: 2; /* Устанавливаем z-index выше, чтобы левая кнопка перекрывала правую */
-    margin-right: -13vw; /* Отрицательный отступ для перекрытия кнопок */
+    z-index: 2;
+    margin-right: -13vw; 
     text-align:right;
     padding-right: 4vw;
     
 }
 .round-button:hover {
-  text-shadow: 0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.5); /* Добавление тени при наведении курсора */
+  text-shadow: 0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.5);
 }
 .button-right-reg {
     background-color: #fade71;
-    margin-left: -20px; /* Отрицательный отступ для перекрытия кнопок */
+    margin-left: -20px; 
     text-align:right;
     padding-right:1.5vw;
 }
 .round-input::placeholder {
   color: #9bb7cb;
-  opacity: 1; /* Убедитесь, что плейсхолдер полностью видим */
+  opacity: 1;
 }
 
 .round-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */

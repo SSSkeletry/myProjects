@@ -1,7 +1,5 @@
 import axios from "axios";
 
-export const Context = createContext(null);
-
 const $host = axios.create({
     baseURL:process.env.REACT_APP_API_URL
 })
