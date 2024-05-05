@@ -29,19 +29,15 @@ const Login = observer(() => {
             } else {
                 const parts = fullName.trim().split(' ');
                 if (parts.length < 2) {
-                    alert('Будь ласка введіть імя на прізвище');
+                    alert('Будь ласка введіть імя та прізвище');
                     return;
                 }
                 const [lastName, firstName] = parts;
                 data = await registration(email, phone, password, firstName, lastName);
             }
-            console.log(data);
-            if (data && data.user) {
-                console.log("test")
                 user.setUser(data.user);
                 user.setIsAuth(true);
                 navigate(TAXI_ROUTE)
-            } 
         } catch (e) {
             alert(e.response.data.message);
         }

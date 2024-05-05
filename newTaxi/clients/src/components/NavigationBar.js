@@ -7,9 +7,12 @@ import { useNavigate } from 'react-router-dom';
 const NavigationBar = observer(() => {
     const { user } = useContext(Context);
     const navigate = useNavigate(); // Hook for navigation
-
+    const logOut = ()=>{
+        user.setUser({})
+        user.setIsAuth(false)
+    }
     const handleLoginNavigation = () => {
-        navigate('/login'); // Use navigate instead of push
+        navigate('/login'); 
     };
     return (
         user.isAuth ? (
@@ -20,19 +23,19 @@ const NavigationBar = observer(() => {
                         {/* Перевіряємо роль та виводимо відповідні пункти меню */}
                         {user.role === 'dispatcher' ? (
                             <>
-                                <li className="nav-item"><a href="#">Диспетчер</a></li>
-                                <li className="nav-item"><a href="#">Reports</a></li>
-                                <li className="nav-item"><a href="#">Management</a></li>
+                                <li className="nav-item"><a>Диспетчер</a></li>
+                                <li className="nav-item"><a>Reports</a></li>
+                                <li className="nav-item"><a>Management</a></li>
                             </>
                         ) : (
                             <>
-                                <li className="nav-item"><a href="#">Профіль</a></li>
-                                <li className="nav-item"><a href="#">Settings</a></li>
+                                <li className="nav-item"><a>Профіль</a></li>
+                                <li className="nav-item"><a>Settings</a></li>
                             </>
                         )}
-                        <li className="nav-item"><a href="#">Company</a></li>
-                        <li className="nav-item"><a href="#">Contact</a></li>
-                        <li className="nav-item"><a href="#">Вийти</a></li>
+                        <li className="nav-item"><a>Company</a></li>
+                        <li className="nav-item"><a>Contact</a></li>
+                        <li className="nav-item"onClick={logOut}><a>Вийти</a></li>
                     </ul>
                 </nav>
             </div>

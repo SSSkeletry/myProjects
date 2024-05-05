@@ -37,13 +37,11 @@ body{
     font-weight: 700;
     color:#012a46;
     font-size: 5vw;
-    margin-bottom:20px
+    margin-bottom:10px
 }
 .main-text h2{
-
   font-weight: 700;
   color:#012a46;
-  font-size: 10px;
   white-space: normal; /* Дозволяє тексту переходити на новий рядок */
   word-wrap: break-word; /* Переносить довгі слова на новий рядок, якщо вони не поміщаються в один рядок */
   text-align:center;

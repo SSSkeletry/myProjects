@@ -20,7 +20,7 @@ class UserContoller{
         }
         const userEmail = await User.findOne({where: {email} }) 
         if(userEmail){
-            return next(ApiError.badRequest('Така пошта вже існує'))
+            return next(ApiError.badRequest('Пошта вже зареєстрована'))
         }
         const hashPassword = await bcrypt.hash(password,5)
         const user = await User.create({email,password: hashPassword,firstName,lastName,phone,role})
