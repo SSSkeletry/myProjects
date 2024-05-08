@@ -16,3 +16,18 @@ export const check = async () => {
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token);
 }
+
+export const getData = async () => {
+    const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    const phoneNumber = decodedToken.phone;
+    return phoneNumber;
+}
+export const create = async (userPhone, start_place, end_place, comment) => {
+    const body = { start_place, end_place, comment };
+    if (userPhone) {
+        body.userPhone = userPhone;
+    }
+    const { data } = await $host.post('api/order/create', body);
+    return data;
+};

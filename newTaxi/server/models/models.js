@@ -6,15 +6,18 @@ const User = sequelize.define('user',{
     password: {type: DataTypes.STRING},
     firstName: { type: DataTypes.STRING, allowNull: false },
     lastName: { type: DataTypes.STRING, allowNull: false },  
-    phone: {type: DataTypes.CHAR,primaryKey: true,unique: true},
+    phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
     role: {type: DataTypes.STRING,defaultValue: 'USER'}
 })
 
 const Car = sequelize.define('car',{
     number_car: {type: DataTypes.STRING,primaryKey: true,allowNull:false},
-    name_car: {type: DataTypes.CHAR,allowNull:false},
+    name_car: {type: DataTypes.STRING,allowNull:false},
     class_car: {type: DataTypes.CHAR,allowNull:false},
+    phone: { type: DataTypes.CHAR, allowNull: false },
+    isCompanyCar: { type: DataTypes.BOOLEAN, defaultValue: false },
     img: {type: DataTypes.STRING,allowNull:false}
+    
 })
 const CarInfo = sequelize.define('car_info',{
     number_car: {type: DataTypes.STRING, primaryKey: true, allowNull:false},
@@ -26,7 +29,7 @@ const Driver = sequelize.define('driver',{
     password: {type: DataTypes.STRING},
     firstName: { type: DataTypes.STRING, allowNull: false },
     lastName: { type: DataTypes.STRING, allowNull: false },  
-    phone: {type: DataTypes.CHAR,primaryKey: true,unique: true},
+    phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
     rating: {type: DataTypes.CHAR},
     verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     role: {type: DataTypes.STRING,defaultValue: 'DRIVER'}
@@ -37,7 +40,7 @@ const Dispatcher = sequelize.define('dispatcher',{
     password: {type: DataTypes.STRING},
     firstName: { type: DataTypes.STRING, allowNull: false },
     lastName: { type: DataTypes.STRING, allowNull: false },  
-    phone: {type: DataTypes.CHAR,unique: true,primaryKey: true,unique: true},
+    phone: {type: DataTypes.CHAR(15),unique: true,primaryKey: true,unique: true},
     warning: {type: DataTypes.CHAR},
     verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     role: {type: DataTypes.STRING,defaultValue: 'DISPATCHER'}
@@ -50,12 +53,13 @@ const Order = sequelize.define('order',{
     start_place: {type: DataTypes.STRING, allowNull:false},
     end_place: {type: DataTypes.STRING, allowNull:false},
     price: {type: DataTypes.CHAR},
-    complete: {type: DataTypes.STRING}
+    complete: {type: DataTypes.STRING},
+    comment: { type: DataTypes.STRING }
 })
 
 //---------Connections--------//
-Car.hasMany(Driver);
-Driver.belongsTo(Car)
+Driver.hasMany(Car, { foreignKey: 'phone' });
+Car.belongsTo(Driver, { foreignKey: 'phone' });
 
 User.hasMany(Order);
 Driver.hasMany(Order);
@@ -74,5 +78,3 @@ module.exports = {
     Driver,
     Order
 }
-
-

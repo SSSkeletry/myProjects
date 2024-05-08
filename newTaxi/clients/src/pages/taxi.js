@@ -1,9 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState,useContext } from 'react';
 import '../style/taxi.css';
 import { initMap } from '../script/googleMaps.js';
+import {create, getData} from '../http/userApi';
+import { observer } from 'mobx-react-lite';
 const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
-const Taxi = () => {
+const Taxi = observer(() => {
+    const [phone, setPhone] = useState('');
+    const [start_place, setStartPlace] = useState('');
+    const [end_place, setEndPlace] = useState('');
+    const [comment, setComment] = useState('');
+    const [showNotFilledMessage, setShowNotFilledMessage] = useState(false);
+    const [showFilledMessage, setShowFilledMessage] = useState(false);
+
+    const handleOrderSubmit = async () => {
+        if (!start_place || !end_place) {
+            setShowNotFilledMessage(true);
+            setShowFilledMessage(false);
+            setTimeout(() => setShowNotFilledMessage(false), 3000); // Автоматически скрывать сообщение после 3 секунд
+            return;
+        }
+        try {
+            const order = await create(phone, start_place, end_place, comment);
+            console.log('Поїздка створена:', order);
+            setShowFilledMessage(true);
+            setShowNotFilledMessage(false);
+            setTimeout(() => setShowFilledMessage(false), 5000); // Автоматически скрывать сообщение после 5 секунд
+        } catch (error) {
+            console.error('Помилка створення:', error);
+            setShowNotFilledMessage(true); // Показать сообщение об ошибке, если оно подходит
+            setShowFilledMessage(false);
+            setTimeout(() => setShowNotFilledMessage(false), 3000); // Автоматически скрывать сообщение после 3 секунд
+        }
+    };
+    const fetchPhoneNumber = async () => {
+        try {
+            const phone = await getData(); // Функция check извлекает номер телефона из токена
+            
+            if (phone) {
+                setPhone(parseInt(phone));
+            }
+        } catch (error) {
+        }
+    };
     useEffect(() => {
         const openPopupButton = document.querySelector('.main-text button');
         const closePopupButton = document.querySelector('.popup-close');
@@ -68,10 +107,10 @@ const Taxi = () => {
             if (google) {
                 initMap(google);
             } else {
-                console.error('Апі не завантажено');
+                console.error('API не завантажено');
             }
         };
-
+        fetchPhoneNumber();
         loadGoogleMapsScript();
     }, []);
 
@@ -91,30 +130,30 @@ const Taxi = () => {
                         <div className="popup-cont">
                             <a href="#header" className="popup-close">X</a>
                             <h1 className="order-header">Замовлення таксі</h1>
-                            <div className="order-data">
-                                <div className="label-box">
-                                    <input type="number" id="number" required />
-                                    <label htmlFor="number">Введіть номер телефону</label>
-                                </div>
-                                <div className="label-box">
-                                    <input id="loc" required />
-                                    <label htmlFor="loc">Місцезнаходження</label>
-                                </div>
-                                <div className="label-box">
-                                    <input id="arrival" required />
-                                    <label htmlFor="arrival">Місцеприбуття</label>
-                                </div>
-                                <div className="label-box">
-                                    <input id="comment" required />
-                                    <label htmlFor="comment">Коментарі для таксиста</label>
-                                </div>
-                                <div>
-                                    <button id="submit">Підтвердити</button>
-                                </div>
-                                <div id="shadow"></div>
-                                <div id="notfill"><i className='bx bxs-x-circle'></i>Будь ласка, заповніть усі поля!</div>
-                                <div id="filled">Дякую що обрали нас! Очікуйте дзвінка! </div>
+                        <div className="order-data">
+                            <div className="label-box">
+                                <input type="number" id="number" value={phone} onChange={e => setPhone(e.target.value)} required />
+                                <label htmlFor="number">Введіть номер телефону</label>
                             </div>
+                            <div className="label-box">
+                                <input id="loc" value={start_place} onChange={e => setStartPlace(e.target.value)} required />
+                                <label htmlFor="loc">Місцезнаходження</label>
+                            </div>
+                            <div className="label-box">
+                                <input id="arrival" value={end_place} onChange={e => setEndPlace(e.target.value)} required />
+                                <label htmlFor="arrival">Місцеприбуття</label>
+                            </div>
+                            <div className="label-box">
+                                <input id="comment" value={comment} onChange={e => setComment(e.target.value)} required />
+                                <label htmlFor="comment">Коментарі для таксиста</label>
+                            </div>
+                            <div>
+                                <button id="submit" onClick={handleOrderSubmit}>Підтвердити</button>
+                            </div>
+                                <div id="shadow"></div>
+                                {showNotFilledMessage && <div id="notfill"><i className='bx bxs-x-circle'></i>Будь ласка, заповніть усі поля!</div>}
+                                {showFilledMessage && <div id="filled">Дякую що обрали нас! Очікуйте дзвінка!</div>}
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -125,6 +164,6 @@ const Taxi = () => {
             </div>
         </>
     );
-};
+});
 
 export default Taxi;

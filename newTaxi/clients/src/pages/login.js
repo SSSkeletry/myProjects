@@ -16,7 +16,6 @@ const Login = observer(() => {
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
     const clickAuth = async () => {
         try {
             let data;

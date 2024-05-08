@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 const NavigationBar = observer(() => {
     const { user } = useContext(Context);
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate(); 
     const logOut = ()=>{
+        localStorage.removeItem('token');
         user.setUser({})
         user.setIsAuth(false)
     }
