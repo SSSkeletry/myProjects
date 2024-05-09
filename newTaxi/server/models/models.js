@@ -7,7 +7,8 @@ const User = sequelize.define('user',{
     firstName: { type: DataTypes.STRING, allowNull: false },
     lastName: { type: DataTypes.STRING, allowNull: false },  
     phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
-    role: {type: DataTypes.STRING,defaultValue: 'USER'}
+    role: {type: DataTypes.STRING,defaultValue: 'USER'},
+    isTemporary: {type: DataTypes.BOOLEAN, defaultValue: false}
 })
 
 const Car = sequelize.define('car',{
