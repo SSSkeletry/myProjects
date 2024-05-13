@@ -89,7 +89,7 @@ input::placeholder {
       display:flex;
       align-items:center;
       justify-content: center;
-      padding:10px 10px;
+      padding:1vw 1vw;
     }
     .popup:target .popup-cont{
       animation: appearancePopUp 2s 1;
@@ -99,7 +99,7 @@ input::placeholder {
       background-color: #fff;
       color: black;
       max-width: 800px;
-      padding:45px 45px 15px;
+      padding:2.9vw 3vw 1.1vw;
       position: relative;
       transition: all 0.8s ease 0s;
       opacity: 0;
@@ -114,12 +114,11 @@ input::placeholder {
       text-decoration: none;
     }
     .order-header{
-      font-size:35px;
-      padding:2;
-      margin-bottom: 20px;
+      font-size:2.3vw;
+      margin-bottom: 1.3vw;
     }
     .order-data div{
-      margin-bottom: 30px;
+      margin-bottom: 1.95vw;
     }
     .popup-area{
       position: absolute;
@@ -132,12 +131,12 @@ input::placeholder {
     .popup button{
       text-decoration: none;
       display: inline;
-      line-height: 40px;
-      padding: 0px 20px;
+      line-height: 2.6vw;
+      padding: 0vw 1.5vw;
       text-transform: uppercase;
       letter-spacing: 2px;
-      font-size:18px;
-      border-radius: 10px;
+      font-size:1.15vw;
+      border-radius: 0.5vw;
       top:0;
       position: relative;
       color: white;
@@ -146,7 +145,7 @@ input::placeholder {
       transition-duration: 0.5s;
     }
     .popup button:hover{
-      top:2px;
+      top:0.5vw;
       color:black;
       box-shadow: 0 3px 0px black;
       background-color: rgba(0, 255, 255, 0.689);
@@ -168,9 +167,9 @@ input::placeholder {
     }
     .label-box input {
       width: 100%;
-      padding: 5px;
+      padding: .33vw;
       box-sizing: border-box;
-      font-size: 18px;
+      font-size: 1.16vw;
       border: none;
       border-bottom: 1px solid #757575;
   }
@@ -178,7 +177,7 @@ input::placeholder {
       position: absolute;
       top: 0;
       left: 0;
-      font-size: 18px;
+      font-size: 1.16vw;
       pointer-events: none;
       color: #757575;
       transition: 0.2s ease all;
@@ -186,12 +185,12 @@ input::placeholder {
   }
   .label-box input:focus + label,
   .label-box input:valid + label {
-      font-size: 14px;
-      transform: translateY(-20px);
+      font-size: 1.16vw;
+      transform: translateY(-1.6vw);
   }
     .label-box {
       position: relative;
-      width: 270px;
+      width: 15vw;
     }
     #shadow {
       position: fixed;

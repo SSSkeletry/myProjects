@@ -1,0 +1,229 @@
+.containerDriver {
+    display: flex;
+    width: 120%; /* Увеличиваем ширину, чтобы блоки могли выходить за экран */
+    margin-left: -10%; /* Смещаем контейнер влево, чтобы часть блока скрылась */
+    align-items: center;
+    height: 50vh;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #fff0bc;
+  }
+  .container{
+    display: flex;
+    width: 100%; /* Увеличиваем ширину, чтобы блоки могли выходить за экран */
+    margin-left: -10%; /* Смещаем контейнер влево, чтобы часть блока скрылась */
+    align-items: center;
+    height: 50vh;
+  }
+  .block {
+    flex: 0 0 20%; /* Каждый блок занимает 20% ширины контейнера */
+    display: flex;
+    align-items: center;
+    border: 0.15vw solid #012a46;
+    justify-content: flex-start; /* Добавлено для горизонтального центрирования */
+    height: 100%;
+    background-color: #fff0bc;
+    text-align: center;
+    transition: transform 2s ease-in-out;
+    cursor:default;
+  }
+  .block img{
+    position: absolute; /* Позиционируем картинку абсолютно внутри блока */
+    max-width: 100%; /* Максимальная ширина изображения не больше блока */
+    width:24vw;
+    height: auto; /* Высота изменяется автоматически */
+    max-height: 100%; /* Максимальная высота не больше блока */
+    margin-top:-5vw;
+  }
+  .block-edge img{
+    height: 22vw;
+  }
+  .block.center {
+    position: relative; /* Делаем блок позиционируемым относительно */
+  }
+  
+  .center img {
+    position: absolute; /* Позиционируем картинку абсолютно внутри блока */
+    margin-top:0.2vw;
+    padding-left:9.5vw;
+    width: auto; /* Ширина изображения подстраивается автоматически */
+    max-width: 100%; /* Максимальная ширина изображения не больше блока */
+    width:20vw;
+    height: auto; /* Высота изменяется автоматически */
+    max-height: 100%; /* Максимальная высота не больше блока */
+  }
+  .text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .overlay-text {
+    margin-top:13.3vw;
+    color: white;  /* Цвет текста */
+    font-size: 1.9vw;  /* Размер шрифта */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);  /* Тень для улучшения читаемости */
+    z-index: 0.5;
+  }
+    .below-image-text {
+    color: #012a46; /* Цвет текста под изображением */
+    font-size: 1.3vw; /* Размер шрифта текста под изображением */
+    margin-top: 1.8vw; /* Отступ от изображения */
+  }
+  .overlay-support{
+    padding-left:0.3vw;
+    margin-top:14vw;
+    letter-spacing: 0.20vw;
+    color: rgb(0, 0, 0);  /* Цвет текста */
+    font-size: 2vw;  /* Размер шрифта */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);  /* Тень для улучшения читаемости */
+    z-index: 1;
+  }
+  .below-image-support {
+    color: #012a46; /* Цвет текста под изображением */
+    font-size: 1.3vw; /* Размер шрифта текста под изображением */
+    margin-top: 4vw; /* Отступ от изображения */
+  }
+  .overlay-schedule{
+    transform: rotate(-12deg);
+    margin-top:13vw;
+    letter-spacing: 0.20vw;
+    color: white;  /* Цвет текста */
+    font-size: 2vw;  /* Размер шрифта */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);  /* Тень для улучшения читаемости */
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+  .below-schedule{
+    color: #012a46; /* Цвет текста под изображением */
+    font-size: 1.3vw; /* Размер шрифта текста под изображением */
+    margin-top: 5vw; /* Отступ от изображения */
+  }
+  .overlay-schedule:hover {
+
+    transform: rotate(-12deg) scale(1.07); /* Увеличиваем текст, сохраняя угол наклона */
+  }
+  .overlay-taxopark{
+    margin-top:16vw;
+    letter-spacing: 0.17vw;
+    color: white;  /* Цвет текста */
+    font-size: 1.8vw;  /* Размер шрифта */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);  /* Тень для улучшения читаемости */
+    z-index: 1;
+  }
+  .below-taxopark{
+    color: #012a46; /* Цвет текста под изображением */
+    font-size: 1.3vw; /* Размер шрифта текста под изображением */
+    margin-top: 2.5vw; /* Отступ от изображения */
+  }
+  .reg-button{
+    z-index: 1;
+    cursor: pointer;
+    padding: 1.9vw 1.5vw; /* Задайте отступы для комфортного нажатия */
+    margin-left:8.5vw;
+    margin-top:5.3vw;
+    background-color: transparent; /* Фоновый цвет кнопки */
+    color: white; /* Цвет текста */
+    border: none; /* Уберите границу, если она не нужна */
+    font-size: 1.5vw; /* Размер шрифта */
+    border-radius: 1vw; /* Скругление углов */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .stop-button{
+    z-index: 0.5;
+    margin-top: 3.5vw;
+    margin-left: 9vw;
+    background-color: #fba707;
+    border-radius: 3vw;
+    width: 8vw;
+    font-size: 1.2vw;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .stop-button.active::after {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+  
+  .stop-button.active::before {
+    opacity: 0;
+    transform: translateY(50%) rotateX(90deg);
+  }
+  
+  .stop-button::after {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    color: #fba707;
+    display: block;
+    transition: all 0.3s ease;
+    position: absolute;
+    background: #012a46;
+    content: attr(data-back);
+    transform: translateY(-50%) rotateX(90deg);
+    text-align: center;
+    line-height: 2vw;
+  }
+  
+  .stop-button::before {
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    color: #012a46;
+    display: block;
+    line-height: 2vw;
+    transition: all 0.3s ease;
+    position: relative;
+    background: #fba707;
+    content: attr(data-front);
+    transform: translateY(0) rotateX(0);
+    text-align: center;
+  }
+  .scale-hover-effect {
+    transition: transform 0.3s ease; /* Плавная анимация изменения размера */
+  }
+  
+  .scale-hover-effect:hover {
+    transform: scale(1.06); /* Увеличивает текст на 10% при наведении */
+  }
+  .popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 3vw;
+    border-radius: 2vw;
+    width: 20vw;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+  
+  .close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  .reg-order-header{
+    display: flex;
+    color:#012a46;
+    font-size:2vw;
+    margin-top:-2.975vw;
+    margin-left:-3vw;
+    margin-bottom: 3.3vw;
+    border-top-left-radius:1.5vw;
+    border-top-right-radius:1.5vw;
+    background-color: #94c3e6;
+    border-color:white;
+    border-style: solid;
+    height: 5.5vw;
+    width: 25.6vw;
+    justify-content: center;
+    align-items: center;
+  }

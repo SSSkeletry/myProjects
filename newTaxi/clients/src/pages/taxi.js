@@ -1,4 +1,4 @@
-import React, { useEffect,useState,useContext } from 'react';
+import React, { useEffect,useState } from 'react';
 import '../style/taxi.css';
 import { initMap } from '../script/googleMaps.js';
 import {create, getData} from '../http/userApi';
@@ -158,10 +158,6 @@ const Taxi = observer(() => {
                     </div>
                 </div>
             </section>
-            <div className="content">
-                <h1>Welcome!</h1>
-                <p>This is some content in the new block below the full-screen background.</p>
-            </div>
         </>
     );
 });

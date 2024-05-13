@@ -1,7 +1,8 @@
 import React, { useState,useContext,useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import AppRoute from './components/AppRoute';
 import NavigationBar from './components/NavigationBar';
+import DriverBlock from './components/driverBlock';
 import { observer } from 'mobx-react-lite';
 import { Context } from '.';
 import { check } from './http/userApi';
@@ -30,7 +31,10 @@ const App = observer(()=> {
   return (
     <BrowserRouter>
       <NavigationBar/>
-      <AppRoute />
+      <Routes>
+        <Route path="/" element={<><AppRoute /><DriverBlock /></>} />
+        <Route path="*" element={<AppRoute />} />
+      </Routes>
     </BrowserRouter>
   );
 });
