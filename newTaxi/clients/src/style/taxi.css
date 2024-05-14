@@ -9,10 +9,8 @@ body{
 .main{
     width: 100%; 
     height: 100%;
-    background-image: url('../assets/main-page.jpg');
+    background: url('../assets/main-page.jpg') center/cover no-repeat;
     background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
     font-family: 'Roboto Condensed', sans-serif;
     top: 0;
     left: 0;
@@ -37,7 +35,7 @@ body{
     font-weight: 700;
     color:#012a46;
     font-size: 5vw;
-    margin-bottom:10px
+    margin-bottom:1vw;
 }
 .main-text h2{
   font-weight: 700;
@@ -50,7 +48,8 @@ body{
 
 /*-------------------PopUp--------------------*/
 input::placeholder {
-    opacity: 0;
+    opacity: 1;
+    font-family: 'Roboto Condensed', sans-serif;
   }
   
  /* Приховує плейсхолдер тільки для конкретних інпутів */
@@ -98,7 +97,7 @@ input::placeholder {
     .popup-cont{
       background-color: #fff;
       color: black;
-      max-width: 800px;
+      max-width: 50vw;
       padding:2.9vw 3vw 1.1vw;
       position: relative;
       transition: all 0.8s ease 0s;
@@ -107,9 +106,9 @@ input::placeholder {
     }
     .popup-close{
       position: absolute;
-      right:10px;
-      top:10px;
-      font-size:20px;
+      right:0.7vw;
+      top:0.7vw;
+      font-size:1.5vw;
       color: black;
       text-decoration: none;
     }
@@ -128,13 +127,13 @@ input::placeholder {
       left:0;
       
     }
-    .popup button{
+    .popup-button{
       text-decoration: none;
       display: inline;
       line-height: 2.6vw;
-      padding: 0vw 1.5vw;
+      padding: 0 1.5vw;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 0.2vw;
       font-size:1.15vw;
       border-radius: 0.5vw;
       top:0;
@@ -144,7 +143,7 @@ input::placeholder {
       box-shadow: 0 5px 0px white;
       transition-duration: 0.5s;
     }
-    .popup button:hover{
+    .popup-button:hover{
       top:0.5vw;
       color:black;
       box-shadow: 0 3px 0px black;
@@ -157,17 +156,15 @@ input::placeholder {
     }
     @keyframes appearancePopUp {
       0% {
-        -webkit-transform: scale(0.5, 0.5);
-        transform: scale(0.5, 0.5)
+        transform: scale(0.5);
       }
       50% {
-        -webkit-transform: scale(1.0, 1.0);
-        transform: scale(1.0, 1.0);
+        transform: scale(1);
       }
     }
     .label-box input {
       width: 100%;
-      padding: .33vw;
+      padding: 0.33vw;
       box-sizing: border-box;
       font-size: 1.16vw;
       border: none;
@@ -261,7 +258,7 @@ input::placeholder {
     }
     
     .main-text button:hover span {
-      padding-right: 25px;
+      padding-right: 2vw;
     }
     
     .main-text button:hover span:after {

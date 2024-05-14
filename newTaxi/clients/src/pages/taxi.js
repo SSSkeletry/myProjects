@@ -124,7 +124,7 @@ const Taxi = observer(() => {
                     <h2>Швидко, надійно та за вигідною ціною! Ваш комфорт – наша турбота. Не змушуйте себе чекати, дозвольте нам доставити вас туди, куди потрібно.</h2>
                 </div>
                 <div id="popup" className="popup">
-                    <a href="#header" className="popup-area"></a>
+                <a href="#header" className="popup-area" aria-label="Close popup"></a>
                     <div className="popup-body">
                         <div id="map" style={{ height: "30.7vw", width: "25%" }}></div>
                         <div className="popup-cont">
@@ -148,7 +148,7 @@ const Taxi = observer(() => {
                                 <label htmlFor="comment">Коментарі для таксиста</label>
                             </div>
                             <div>
-                                <button id="submit" onClick={handleOrderSubmit}>Підтвердити</button>
+                                <button id="submit" className='popup-button' onClick={handleOrderSubmit}>Підтвердити</button>
                             </div>
                                 <div id="shadow"></div>
                                 {showNotFilledMessage && <div id="notfill"><i className='bx bxs-x-circle'></i>Будь ласка, заповніть усі поля!</div>}
