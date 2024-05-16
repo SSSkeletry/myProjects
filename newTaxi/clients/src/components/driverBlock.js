@@ -7,11 +7,19 @@ import grafick from '../assets/grafick.png';
 import support from '../assets/support.png';
 import taxist from '../assets/taxist.png';
 import CircleType from 'circletype';
+import { registration } from '../http/driverApi';
 
 const DriverBlock = () => {
   const [isExtended, setIsExtended] = useState(false);
   const [file, setFile] = useState({ name: '', preview: null });
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const [formData, setFormData] = useState({
+    driverName: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
 
   const blocksRef = useRef([useRef(null), useRef(null), useRef(null), useRef(null)]);
   const stopButton = useRef(null);
@@ -69,6 +77,23 @@ const DriverBlock = () => {
       regPopup.current.style.visibility = 'hidden';
     }, 500);
   };
+const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+  const handleRegisterSubmit = async () => {
+    try {
+      const { email, phone, password, driverName } = formData;
+      const [firstName, lastName] = driverName.split(' ');
+      await registration(email, phone, password, firstName, lastName);
+      handleCloseClick();
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error);
+    }
+  };
 
   useEffect(() => {
     if (overlayTextRef.current) {
@@ -110,19 +135,19 @@ const DriverBlock = () => {
                 <h1 className="reg-order-header"><span>Стати</span><img src={taxist} alt='Таксист' /><span>водієм</span></h1>
                 <div className="order-data">
                   <div className="label-box reg-label-box">
-                    <input type="text" id="driverName" required />
+                    <input type="text" id="driverName" onChange={handleInputChange} required />
                     <label htmlFor="driverName">Ім'я та прізвище</label>
                   </div>
                   <div className="label-box reg-label-box">
-                    <input type="email" id="email" required />
-                    <label htmlFor="email">Email</label>
+                    <input type="text" id="email" onChange={handleInputChange} required />
+                    <label htmlFor="email">Пошта</label>
                   </div>
                   <div className="label-box reg-label-box">
-                    <input type="tel" id="phone" required />
+                    <input type="tel" id="phone" onChange={handleInputChange} required />
                     <label htmlFor="phone">Телефон</label>
                   </div>
                   <div className="label-box reg-label-box">
-                    <input type="tel" id="password" required />
+                    <input type="tel" id="password" onChange={handleInputChange} required />
                     <label htmlFor="password">Пароль</label>
                   </div>
                   <button className="extend-button" onClick={handleButtonClick}>
@@ -182,7 +207,7 @@ const DriverBlock = () => {
                     </>
                   )}
                   <div>
-                    <button id="regSubmit" className='popup-button'>Зареєструватися</button>
+                    <button id="regSubmit" className='popup-button' onClick={handleRegisterSubmit}>Зареєструватися</button>
                   </div>
                 </div>
               </div>

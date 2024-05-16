@@ -9,6 +9,7 @@ export const registration = async (email, phone, password,firstName,lastName) =>
 export const login = async (email, password) => {
     const {data} = await $host.post('api/user/login',{email, password})
     localStorage.setItem('token',data.token)
+    console.log(data)
     return jwtDecode(data.token);
 }
 export const check = async () => {

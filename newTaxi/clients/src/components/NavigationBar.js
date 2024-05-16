@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 const NavigationBar = observer(() => {
     const { user } = useContext(Context);
     const navigate = useNavigate(); 
-    const logOut = ()=>{
+    const logOut = () => {
         localStorage.removeItem('token');
-        user.setUser({})
-        user.setIsAuth(false)
-    }
+        user.setUser({});
+        user.setIsAuth(false);
+    };
     const handleLoginNavigation = () => {
         navigate('/login'); 
     };
@@ -24,19 +24,21 @@ const NavigationBar = observer(() => {
                         {/* Перевіряємо роль та виводимо відповідні пункти меню */}
                         {user.role === 'dispatcher' ? (
                             <>
-                                <li className="nav-item"><a>Диспетчер</a></li>
-                                <li className="nav-item"><a>Reports</a></li>
-                                <li className="nav-item"><a>Management</a></li>
+                                <li className="nav-item"><a href="/dispatcher">Диспетчер</a></li>
+                                <li className="nav-item"><a href="/reports">Reports</a></li>
+                                <li className="nav-item"><a href="/management">Management</a></li>
                             </>
                         ) : (
                             <>
-                                <li className="nav-item"><a>Профіль</a></li>
-                                <li className="nav-item"><a>Settings</a></li>
+                                <li className="nav-item"><a href="/profile">Профіль</a></li>
+                                <li className="nav-item"><a href="/settings">Settings</a></li>
                             </>
                         )}
-                        <li className="nav-item"><a>Company</a></li>
-                        <li className="nav-item"><a>Contact</a></li>
-                        <li className="nav-item"onClick={logOut}><a>Вийти</a></li>
+                        <li className="nav-item"><a href="/company">Company</a></li>
+                        <li className="nav-item"><a href="/contact">Contact</a></li>
+                        <li className="nav-item" onClick={logOut}>
+                            <a className="link-button">Вийти</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -45,15 +47,17 @@ const NavigationBar = observer(() => {
                 <div id="menu-button" className="menu-button">☰</div>
                 <nav id="navigation" className="navigation">
                     <ul className="nav-list">
-                        <li className="nav-item"><a>Design</a></li>
-                        <li className="nav-item"><a>Company</a></li>
-                        <li className="nav-item"><a>Contact</a></li>
-                        <li className="nav-item"onClick={handleLoginNavigation}><a>Авторизація</a></li>
+                        <li className="nav-item"><a href="/design">Design</a></li>
+                        <li className="nav-item"><a href="/company">Company</a></li>
+                        <li className="nav-item"><a href="/contact">Contact</a></li>
+                        <li className="nav-item" onClick={handleLoginNavigation}>
+                            <a className="link-button">Авторизація</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
         )
     );
-})
+});
 
 export default NavigationBar;
