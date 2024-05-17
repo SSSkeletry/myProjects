@@ -1,7 +1,7 @@
 const ApiError = require('../error/apiError');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User, Driver, Dispatcher } = require('../models/models');
+const { User, Driver, Dispatcher,Car } = require('../models/models');
 
 const generateJwt = (id, email, phone, firstName, lastName, role) => {
     return jwt.sign(
@@ -13,7 +13,7 @@ const generateJwt = (id, email, phone, firstName, lastName, role) => {
 
 class DriverController {
     async registration(req, res, next) {
-        const { email, phone, password, firstName, lastName, role } = req.body;
+        const { email, phone, password, firstName, lastName, role,number_car, name_car, class_car, img } = req.body;
         if (!email || !password) {
             return next(ApiError.badRequest('Не допустима пошта або пароль'));
         }
@@ -56,6 +56,10 @@ class DriverController {
 
         const hashPassword = await bcrypt.hash(password, 5);
         const driver = await Driver.create({ email, password: hashPassword, firstName, lastName, phone, role });
+        if (number_car && name_car && class_car && img) {
+            const car = await Car.create({ number_car, name_car, class_car, img }); // Создайте автомобиль, если данные были переданы
+            await driver.setCar(car); // Свяжите автомобиль с водителем
+        }
         const token = generateJwt(driver.id, driver.email, driver.phone, driver.firstName, driver.lastName, driver.role);
         return res.json({ token });
     }

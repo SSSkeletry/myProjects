@@ -19,6 +19,9 @@ const DriverBlock = () => {
     email: '',
     phone: '',
     password: '',
+    numberCar: '',
+    nameCar: '',
+    classCar: ''
   });
 
   const blocksRef = useRef([useRef(null), useRef(null), useRef(null), useRef(null)]);
@@ -86,14 +89,16 @@ const handleInputChange = (e) => {
   };
   const handleRegisterSubmit = async () => {
     try {
-      const { email, phone, password, driverName } = formData;
-      const [firstName, lastName] = driverName.split(' ');
-      await registration(email, phone, password, firstName, lastName);
-      handleCloseClick();
+        const { email, phone, password, driverName, numberCar, nameCar, classCar } = formData;
+        const [firstName, lastName] = driverName.split(' ');
+        const img = file.name; // Изображение автомобиля
+        console.log(formData); // Логируем данные формы
+        await registration(email, phone, password, firstName, lastName, numberCar, nameCar, classCar, img);
+        handleCloseClick();
     } catch (error) {
-      console.error('Ошибка при регистрации:', error);
+        console.error('Ошибка при регистрации:', error);
     }
-  };
+};
 
   useEffect(() => {
     if (overlayTextRef.current) {
@@ -156,15 +161,15 @@ const handleInputChange = (e) => {
                   {isExtended && (
                     <>
                       <div className="label-box reg-label-box">
-                        <input type="text" id="numberCar" required />
+                        <input type="text" id="numberCar" onChange={handleInputChange} required />
                         <label htmlFor="numberCar">Номер автомобіля</label>
                       </div>
                       <div className="label-box reg-label-box">
-                        <input type="text" id="nameCar" required />
+                        <input type="text" id="nameCar" onChange={handleInputChange} required />
                         <label htmlFor="nameCar">Назва автомобіля</label>
                       </div>
                       <div className="label-box reg-label-box">
-                        <input type="text" id="classCar" required />
+                        <input type="text" id="classCar" onChange={handleInputChange} required />
                         <label htmlFor="classCar">Класс автомобіля</label>
                       </div>
                       <div className="label-box reg-label-box">

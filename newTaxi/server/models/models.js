@@ -15,7 +15,6 @@ const Car = sequelize.define('car',{
     number_car: {type: DataTypes.STRING,primaryKey: true,allowNull:false},
     name_car: {type: DataTypes.STRING,allowNull:false},
     class_car: {type: DataTypes.CHAR,allowNull:false},
-    phone: { type: DataTypes.CHAR, allowNull: false },
     isCompanyCar: { type: DataTypes.BOOLEAN, defaultValue: false },
     img: {type: DataTypes.STRING,allowNull:false}
     
@@ -59,8 +58,8 @@ const Order = sequelize.define('order',{
 })
 
 //---------Connections--------//
-Driver.hasMany(Car, { foreignKey: 'phone' });
-Car.belongsTo(Driver, { foreignKey: 'phone' });
+Car.hasOne(Driver);
+Driver.belongsTo(Car);
 
 User.hasMany(Order);
 Driver.hasMany(Order);
