@@ -40,7 +40,7 @@ const Dispatcher = sequelize.define('dispatcher',{
     password: {type: DataTypes.STRING},
     firstName: { type: DataTypes.STRING, allowNull: false },
     lastName: { type: DataTypes.STRING, allowNull: false },  
-    phone: {type: DataTypes.CHAR(15),unique: true,primaryKey: true,unique: true},
+    phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
     warning: {type: DataTypes.CHAR},
     verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     role: {type: DataTypes.STRING,defaultValue: 'DISPATCHER'}

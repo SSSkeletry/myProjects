@@ -10,7 +10,7 @@ const Login = observer(() => {
     const location = useLocation();
     const navigate = useNavigate();
     const isLogin = location.pathname === LOGIN_ROUTE;
-    const {user} = useContext(Context);
+    const {user, taxi, dispatcher } = useContext(Context);
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -34,13 +34,20 @@ const Login = observer(() => {
                 const [lastName, firstName] = parts;
                 data = await registration(email, phone, password, firstName, lastName);
             }
-                user.setUser(data.user);
-                user.setIsAuth(true);
-                navigate(TAXI_ROUTE)
+            user.setUser(data);
+            user.setIsAuth(true);
+            if (data.role === 'DRIVER') {
+                taxi.setDriver(data);
+                taxi.setIsAvailable(true);
+            } else if (data.role === 'DISPATCHER') {
+                dispatcher.setDispatcher(data);
+                dispatcher.setIsAvailable(true);
+            }
+            navigate(TAXI_ROUTE);
         } catch (e) {
             alert(e.response.data.message);
         }
-    }
+    };
     
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);

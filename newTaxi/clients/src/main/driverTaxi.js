@@ -13,7 +13,6 @@ export default class Taxi {
     
     setDriver(driver) {
         this._driver = driver;
-        console.log("Driver set:", this._driver);  // Логирование для отладки
     }
 
     get isAvailable() {
@@ -24,7 +23,6 @@ export default class Taxi {
         return this._driver;
     }
     isDriver() {
-        console.log("Checking driver role:", this._driver.role);  // Логирование для отладки
         return this._driver && this._driver.role === 'DRIVER';
     }
 }

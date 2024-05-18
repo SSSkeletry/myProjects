@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 const NavigationBar = observer(() => {
-    const { user, taxi } = useContext(Context);
+    const { user, taxi, dispatcher } = useContext(Context);
     const navigate = useNavigate(); 
     const logOut = () => {
         localStorage.removeItem('token');
@@ -13,6 +13,9 @@ const NavigationBar = observer(() => {
         user.setIsAuth(false);
         taxi.setDriver({});
         taxi.setIsAvailable(false);
+        dispatcher.setDispatcher({});
+        dispatcher.setIsAvailable(false);
+        window.location.reload();
     };
     const handleLoginNavigation = () => {
         navigate('/login'); 
@@ -26,18 +29,22 @@ const NavigationBar = observer(() => {
                         {/* Перевіряємо роль та виводимо відповідні пункти меню */}
                         {taxi.isDriver() ? (
                             <>
-                                <li className="nav-item"><a href="/dispatcher">Тест</a></li>
-                                <li className="nav-item"><a href="/reports">Reports</a></li>
+                                <li className="nav-item"><a href="/driver">Замовлення</a></li>
                                 <li className="nav-item"><a href="/management">Management</a></li>
+                            </>
+                        ) : dispatcher.isDispatcher() ? (
+                            <>
+                                <li className="nav-item"><a href="/tasks">ПППП</a></li>
+                                <li className="nav-item"><a href="/manageDrivers">Manage Drivers</a></li>
                             </>
                         ) : (
                             <>
-                                <li className="nav-item"><a href="/profile">Профіль</a></li>
                                 <li className="nav-item"><a href="/settings">Settings</a></li>
                             </>
                         )}
-                        <li className="nav-item"><a href="/company">Company</a></li>
-                        <li className="nav-item"><a href="/contact">Contact</a></li>
+                         <li className="nav-item"><a href="/contact">Contact</a></li>
+                        <li className="nav-item"><a href="/profile">Профіль</a></li>
+
                         <li className="nav-item" onClick={logOut}>
                             <a className="link-button">Вийти</a>
                         </li>

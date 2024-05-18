@@ -9,7 +9,7 @@ import { check } from './http/userApi';
 import { Watch } from 'react-loader-spinner';
 
 const App = observer(()=> {
-  const {user,taxi} = useContext(Context);
+  const {user,taxi,dispatcher} = useContext(Context);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +20,10 @@ const App = observer(()=> {
       if (data.role === 'DRIVER') {
         taxi.setDriver(data);
         taxi.setIsAvailable(true);
-    }
+    } else if (data.role === 'DISPATCHER') {
+      dispatcher.setDispatcher(data);
+      dispatcher.setIsAvailable(true);
+  }
     }).catch(error => {
       user.setIsAuth(false);
     }).finally(() => {
