@@ -9,7 +9,6 @@ export default class Dispatcher {
     }
     setDispatcher(dispatcher) {
         this._dispatcher = dispatcher;
-        console.log("Dispatcher set:", this._dispatcher);  // Логирование для отладки
     }
     setIsAvailable(isAvailable) {
         this._isAvailable = isAvailable;
@@ -27,7 +26,6 @@ export default class Dispatcher {
         return this._tasks;
     }
     isDispatcher() {
-        console.log("Checking dispatcher role:", this._dispatcher.role);  // Логирование для отладки
         return this._dispatcher && this._dispatcher.role === 'DISPATCHER';
     }
 }

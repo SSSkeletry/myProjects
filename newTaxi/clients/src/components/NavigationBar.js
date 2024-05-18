@@ -29,12 +29,12 @@ const NavigationBar = observer(() => {
                         {/* Перевіряємо роль та виводимо відповідні пункти меню */}
                         {taxi.isDriver() ? (
                             <>
-                                <li className="nav-item"><a href="/driver">Замовлення</a></li>
+                                <li className="nav-item"><a href="/driver">Таксувати</a></li>
                                 <li className="nav-item"><a href="/management">Management</a></li>
                             </>
                         ) : dispatcher.isDispatcher() ? (
                             <>
-                                <li className="nav-item"><a href="/tasks">ПППП</a></li>
+                                <li className="nav-item"><a href="/dispatcher">Замовлення</a></li>
                                 <li className="nav-item"><a href="/manageDrivers">Manage Drivers</a></li>
                             </>
                         ) : (
