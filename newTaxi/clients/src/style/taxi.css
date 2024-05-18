@@ -98,7 +98,7 @@ input::placeholder {
       background-color: #fff;
       color: black;
       max-width: 50vw;
-      padding:2.9vw 3vw 1.1vw;
+      padding:1vw 3vw 1.1vw;
       position: relative;
       transition: all 0.8s ease 0s;
       opacity: 0;
@@ -114,7 +114,7 @@ input::placeholder {
     }
     .order-header{
       font-size:2.3vw;
-      margin-bottom: 1.3vw;
+      padding-bottom: 1.3vw;
     }
     .order-data div{
       margin-bottom: 1.95vw;
@@ -189,42 +189,72 @@ input::placeholder {
       position: relative;
       width: 15vw;
     }
+    #notfill, #filled {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-out; /* Анимация появления */
+      box-shadow: 0 3px 0px;
+      visibility: hidden; /* По умолчанию скрыты */
+      opacity: 0; /* По умолчанию скрыты */
+      transition: visibility 0s, opacity 0.5s linear; /* Плавный переход */
+      z-index: 1001; /* Повыше затемненного фона */
+    }
+    
+    #notfill {
+      box-shadow: 0 3px 0px red;
+    }
+    
+    #filled {
+      box-shadow: 0 3px 0px rgb(0, 150, 0);
+    }
+    
+    #notfill.visible, #filled.visible {
+      visibility: visible; /* Отображаются при добавлении класса visible */
+      opacity: 1; /* Отображаются при добавлении класса visible */
+    }
+    
     #shadow {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #000;
-      opacity: 0.3;
-      display: none;
+      background: rgba(0, 0, 0, 0.5); /* Затемненный фон */
+      z-index: 1000; /* Позади сообщений */
+      visibility: hidden; /* По умолчанию скрыт */
+      opacity: 0; /* По умолчанию скрыт */
+      transition: visibility 0s, opacity 0.5s linear; /* Плавный переход */
     }
-    #notfill {
-      position: absolute;
-      top: 40%;
-      left: 10%;
-      right: 10%;
-      background: #fff;
-      border-radius: 5px;
-      padding: 10px;
-      display: none;
-      text-align: center;
-      animation: appearancePopUp 2s 1;
-      box-shadow: 0 3px 0px red;
+    
+    #shadow.visible {
+      visibility: visible; /* Отображается при добавлении класса visible */
+      opacity: 1; /* Отображается при добавлении класса visible */
     }
-    #filled {
-      position: absolute;
-      top: 40%;
-      left: 10%;
-      right: 10%;
-      background: #fff;
-      border-radius: 5px;
-      padding: 10px;
-      display: none;
-      text-align: center;
-      animation: appearancePopUp 2s 1;
-      box-shadow: 0 3px 0px rgb(0, 150, 0);
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
+    
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;

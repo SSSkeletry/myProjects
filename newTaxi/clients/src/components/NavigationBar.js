@@ -22,7 +22,7 @@ const NavigationBar = observer(() => {
                 <nav id="navigation" className="navigation">
                     <ul className="nav-list">
                         {/* Перевіряємо роль та виводимо відповідні пункти меню */}
-                        {user.role === 'dispatcher' ? (
+                        {user.role === 'driver' ? (
                             <>
                                 <li className="nav-item"><a href="/dispatcher">Диспетчер</a></li>
                                 <li className="nav-item"><a href="/reports">Reports</a></li>
