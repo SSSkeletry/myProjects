@@ -5,12 +5,14 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 const NavigationBar = observer(() => {
-    const { user } = useContext(Context);
+    const { user, taxi } = useContext(Context);
     const navigate = useNavigate(); 
     const logOut = () => {
         localStorage.removeItem('token');
         user.setUser({});
         user.setIsAuth(false);
+        taxi.setDriver({});
+        taxi.setIsAvailable(false);
     };
     const handleLoginNavigation = () => {
         navigate('/login'); 
@@ -22,9 +24,9 @@ const NavigationBar = observer(() => {
                 <nav id="navigation" className="navigation">
                     <ul className="nav-list">
                         {/* Перевіряємо роль та виводимо відповідні пункти меню */}
-                        {user.role === 'driver' ? (
+                        {taxi.isDriver() ? (
                             <>
-                                <li className="nav-item"><a href="/dispatcher">Диспетчер</a></li>
+                                <li className="nav-item"><a href="/dispatcher">Тест</a></li>
                                 <li className="nav-item"><a href="/reports">Reports</a></li>
                                 <li className="nav-item"><a href="/management">Management</a></li>
                             </>
