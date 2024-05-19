@@ -41,12 +41,40 @@ class OrderController{
             res.status(500).json({ message: error.message });
         }
     }
-    async getAll(req,res){
-        
+    async getAll(req, res) {
+        try {
+            const orders = await Order.findAll();
+            return res.json(orders);
+        } catch (e) {
+            return res.status(500).json({ message: 'Failed to fetch orders' });
+        }
     }
-    async getOne(req,res){
-        
+
+    async getOne(req, res) {
+        const { id } = req.params;
+        const order = await Order.findOne({ where: { id } });
+        return res.json(order);
+    }
+    async accept(req, res) {
+        try {
+            const { orderId,dispatcherPhone  } = req.body;
+            const currentTime = new Date();
+            console.log("Received orderId:", orderId); // Логирование orderId
+            const order = await Order.findByPk(orderId);
+            if (!order) {
+                console.log("Order not found for ID:", orderId); // Логирование случая, когда заказ не найден
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            order.status = 'У виконанні';
+            order.dispatcherPhone = dispatcherPhone;
+            order.start_time = currentTime;
+            await order.save();
+            console.log("Order accepted:", order); // Логирование принятого заказа
+            return res.json({ message: 'Order accepted successfully' });
+        } catch (e) {
+            console.error("Error in accept controller:", e); // Логирование ошибки
+            return res.status(500).json({ message: 'Failed to accept order' });
+        }
     }
 }
-
 module.exports = new OrderController();

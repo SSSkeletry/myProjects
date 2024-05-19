@@ -1,0 +1,73 @@
+.body-disp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 20px; /* Добавлено для отступов */
+    height: 100%; /* Заполнение всей страницы */
+    width: 100%; /* Заполнение всей ширины */
+}
+
+.order-management {
+    margin-top:5vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 3vw;
+    max-width: 83vw; /* Увеличено для размещения трех колонок */
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+header h2 {
+    font-size: 1.2em;
+    color: #666;
+    margin: 0;
+}
+
+.orders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Три колонки */
+    gap: 1.2vw; /* Отступы между карточками */
+    margin-top: 2vw;
+}
+
+.order-card {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+}
+
+.order-card h3 {
+    font-size: 1em;
+    margin: 0;
+    color: #666;
+}
+
+.order-card p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 10px;
+}
+.order-card button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.order-card button:hover {
+    background-color: #45a049;
+}

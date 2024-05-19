@@ -53,7 +53,7 @@ const Order = sequelize.define('order',{
     start_place: {type: DataTypes.STRING, allowNull:false},
     end_place: {type: DataTypes.STRING, allowNull:false},
     price: {type: DataTypes.CHAR},
-    complete: {type: DataTypes.STRING},
+    status: {type: DataTypes.STRING,defaultValue: 'В очікуванні'},
     comment: { type: DataTypes.STRING }
 })
 

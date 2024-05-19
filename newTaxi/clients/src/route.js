@@ -3,7 +3,8 @@ import Login from "./pages/login"
 import Profile from "./pages/profile"
 import Order from "./pages/order"
 import Taxi from "./pages/taxi"
-import { LOGIN_ROUTE, ORDER_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, TAXI_ROUTE, USER_ROUTE } from "./utils/consts";
+import Dispatcher from "./pages/dispatcher"
+import { LOGIN_ROUTE, ORDER_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, TAXI_ROUTE, USER_ROUTE,DISPATCHER_ROUTE } from "./utils/consts";
 
 
 export const authRoutes = [
@@ -48,6 +49,10 @@ export const DispatcherRoutes = [
     {
         path: ORDER_ROUTE,
         Component: Order,
+    },
+    {
+        path: DISPATCHER_ROUTE,
+        Component: Dispatcher,
     },
 ]
 
