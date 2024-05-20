@@ -50,10 +50,14 @@ class OrderController{
         }
     }
 
-    async getOne(req, res) {
-        const { id } = req.params;
-        const order = await Order.findOne({ where: { id } });
-        return res.json(order);
+    async getDispatcherOrders(req, res) {
+        try {
+            const { phone } = req.query;
+            const orders = await Order.findAll({ where: { dispatcherPhone: phone,status: 'У виконанні' } });
+            return res.json(orders);
+        } catch (e) {
+            return res.status(500).json({ message: 'Failed to fetch dispatcher orders' });
+        }
     }
     async accept(req, res) {
         try {

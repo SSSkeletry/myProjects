@@ -1,13 +1,16 @@
 import React, { useState, useEffect  } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../style/dispatcher.css';
 import OrderMap from '../script/orderMap';
 import { observer } from 'mobx-react-lite';
 import { getData } from '../http/userApi';
 
+
 const Dispatcher = observer(() => {
     const [phone, setPhone] = useState('');
     const [orders, setOrders] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -16,10 +19,11 @@ const Dispatcher = observer(() => {
                 const response = await axios.get(`${apiUrl}api/order/getall`);
                 const orderData = response.data;
                 if (Array.isArray(orderData)) {
-                    setOrders(orderData);
+                    setOrders(orderData.filter(order => order.status !== 'У виконанні'));
                 } else {
                     console.error("Unexpected response format:", orderData);
                 }
+                // ----------
             } catch (error) {
                 console.error("Error fetching orders:", error);
             }
@@ -43,10 +47,14 @@ const Dispatcher = observer(() => {
 
     const acceptOrder = async (orderId) => {
         try {
+            console.log("Attempting to accept order with ID:", orderId); // Логирование orderId
+            console.log("Dispatcher phone before accepting order:", phone); // Логирование телефона диспетчера
+
             const apiUrl = process.env.REACT_APP_API_URL;
-            await axios.post(`${apiUrl}api/order/accept`, { orderId,dispatcherPhone: phone });
+            await axios.post(`${apiUrl}api/order/accept`, { orderId, dispatcherPhone: phone });
             alert("Order accepted successfully!");
-            setOrders(orders.map(order => order.idOrder === orderId ? { ...order, status: 'accepted' } : order));
+            setOrders(orders.map(order => order.idOrder === orderId ? { ...order, status: 'У виконанні' } : order));
+            navigate('/order'); // Перенаправление на страницу Order
         } catch (error) {
             console.error("Error accepting order:", error);
             alert("Failed to accept order.");

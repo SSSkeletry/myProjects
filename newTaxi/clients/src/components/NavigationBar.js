@@ -35,7 +35,7 @@ const NavigationBar = observer(() => {
                         ) : dispatcher.isDispatcher() ? (
                             <>
                                 <li className="nav-item"><a href="/dispatcher">Почати роботу</a></li>
-                                <li className="nav-item"><a href="/manageDrivers">Замовлення</a></li>
+                                <li className="nav-item"><a href="/order">Замовлення</a></li>
                             </>
                         ) : (
                             <>
