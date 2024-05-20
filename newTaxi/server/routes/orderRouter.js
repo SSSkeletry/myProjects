@@ -6,4 +6,5 @@ router.post('/create',orderControl.create)
 router.get('/getall',orderControl.getAll)
 router.get('/dispatcherOrders',orderControl.getDispatcherOrders)
 router.post('/accept',orderControl.accept)
+router.post('/assignDriver', orderControl.assignDriver);
 module.exports = router;

@@ -80,5 +80,25 @@ class OrderController{
             return res.status(500).json({ message: 'Failed to accept order' });
         }
     }
+    async assignDriver(req, res) {
+        try {
+            const { orderId, driverPhone } = req.body;
+            console.log("Assigning driver:", driverPhone, "to order:", orderId); // Логирование назначения водителя
+    
+            const order = await Order.findByPk(orderId);
+            if (!order) {
+                console.log("Order not found for ID:", orderId);
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            order.driverPhone = driverPhone; // Назначение водителя заказу
+            await order.save();
+            console.log("Driver assigned:", order);
+            return res.json({ message: 'Driver assigned successfully', order });
+        } catch (e) {
+            console.error("Error in assignDriver controller:", e);
+            return res.status(500).json({ message: 'Failed to assign driver' });
+        }
+    }
+    
 }
 module.exports = new OrderController();

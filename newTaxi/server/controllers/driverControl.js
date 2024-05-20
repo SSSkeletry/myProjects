@@ -68,6 +68,15 @@ class DriverController {
         const token = generateJwt(req.driver.id, req.driver.email, req.driver.phone, req.driver.firstName, req.driver.lastName, req.driver.role);
         return res.json({ token });
     }
+    async getAll(req, res) {
+        try {
+            const drivers = await Driver.findAll();
+            return res.json(drivers);
+        } catch (e) {
+            console.error("Error fetching drivers:", e);
+            return res.status(500).json({ message: 'Failed to fetch drivers' });
+        }
+    }
 }
 
 module.exports = new DriverController();

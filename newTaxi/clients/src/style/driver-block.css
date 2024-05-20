@@ -148,6 +148,28 @@
     opacity: 0;
     transform: translateY(50%) rotateX(90deg);
   }
+  .overlay-support, .overlay-text, .overlay-taxopark {
+    transition: transform 0.3s ease; /* Добавляем плавный переход */
+  }
+  
+  .overlay-support:hover, .overlay-text:hover, .overlay-taxopark:hover {
+    transform: scale(1.07); /* Увеличиваем текст при наведении */
+  }
+  
+  /* Дополнительные настройки для поддержки */
+  .overlay-support:hover {
+    transform: scale(1.07); /* Увеличиваем текст при наведении */
+  }
+  
+  /* Дополнительные настройки для бонусов для водіїв */
+  .overlay-text:hover {
+    transform: scale(1.07); /* Увеличиваем текст при наведении */
+  }
+  
+  /* Дополнительные настройки для таксопарка */
+  .overlay-taxopark:hover {
+    transform: scale(1.07); /* Увеличиваем текст при наведении */
+  }
   
   .stop-button::after {
     top: 0;

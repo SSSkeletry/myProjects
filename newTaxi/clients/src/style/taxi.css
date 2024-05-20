@@ -5,7 +5,8 @@ body{
     width: 100%;
     overflow: auto;
     background-color: #fff0bc;
-    
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow-x: hidden;
 }
 .main{
     width: 100%; 
