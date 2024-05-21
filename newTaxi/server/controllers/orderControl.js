@@ -82,15 +82,18 @@ class OrderController{
     }
     async assignDriver(req, res) {
         try {
-            const { orderId, driverPhone } = req.body;
+            const { orderId, driverPhone,price } = req.body;
             console.log("Assigning driver:", driverPhone, "to order:", orderId); // Логирование назначения водителя
-    
+            if (price === undefined) {
+                return next(ApiError.badRequest('Price not provided'));
+            }
             const order = await Order.findByPk(orderId);
             if (!order) {
                 console.log("Order not found for ID:", orderId);
                 return res.status(404).json({ message: 'Order not found' });
             }
             order.driverPhone = driverPhone; // Назначение водителя заказу
+            order.price = price;
             await order.save();
             console.log("Driver assigned:", order);
             return res.json({ message: 'Driver assigned successfully', order });

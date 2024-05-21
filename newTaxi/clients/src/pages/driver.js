@@ -92,7 +92,7 @@ const Driver = observer(() => {
                             </div>
                         ))
                     ) : (
-                        <p>No orders assigned yet.</p>
+                        <p>Замовлень немає, зачекайте будь ласка</p>
                     )}
                 </div>
             </div>

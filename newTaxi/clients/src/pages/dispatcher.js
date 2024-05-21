@@ -80,7 +80,7 @@ const Dispatcher = observer(() => {
                         </div>
                     ))
                 ) : (
-                    <p>No orders available</p>
+                    <p>Ви ще не прийняли замовлення</p>
                 )}
             </div>
         </div>

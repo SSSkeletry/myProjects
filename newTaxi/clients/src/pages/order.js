@@ -13,6 +13,9 @@ const Order = () => {
     const [assignedOrders, setAssignedOrders] = useState({});
     const [distances, setDistances] = useState({});
 
+    const BASE_RATE = 50; // Базовая ставка в гривнах
+    const PRICE_PER_KM = 10; // Цена за километр в гривнах
+
     useEffect(() => {
         const fetchPhoneNumber = async () => {
             try {
@@ -93,6 +96,10 @@ const Order = () => {
         }));
     };
 
+    const calculatePrice = (distanceInKm) => {
+        return BASE_RATE + (PRICE_PER_KM * distanceInKm);
+    };
+
     const assignDriver = async (orderId) => {
         try {
             const selectedDriver = selectedDrivers[orderId];
@@ -107,13 +114,15 @@ const Order = () => {
                 return;
             }
 
+            const price = calculatePrice(distanceInKm);
+
             const apiUrl = process.env.REACT_APP_API_URL;
-            await axios.post(`${apiUrl}/api/order/assignDriver`, { orderId, driverPhone: selectedDriver.value, price: distanceInKm });
+            await axios.post(`${apiUrl}api/order/assignDriver`, { orderId, driverPhone: selectedDriver.value, price });
             setAssignedOrders(prevAssignedOrders => ({
                 ...prevAssignedOrders,
                 [orderId]: true
             }));
-            alert(`Driver assigned successfully! Distance: ${distanceInKm} km`);
+            alert(`Driver assigned successfully! Distance: ${distanceInKm} km, Price: ${price} грн`);
         } catch (error) {
             console.error("Error assigning driver:", error);
             alert("Failed to assign driver.");
@@ -144,7 +153,8 @@ const Order = () => {
                                 <p>Місце прибуття: {order.end_place}</p>
                                 <p>Початок замовлення: {order.start_time}</p>
                                 <p>Коментарі: {order.comment}</p>
-                                <p>Відстань: {distances[order.idOrder] ? `${distances[order.idOrder]} км` : 'Не встановлено'}</p> {/* Отображение расстояния */}
+                                <p>Відстань: {distances[order.idOrder] ? `${distances[order.idOrder]} км` : 'Не встановлено'}</p>
+                                <p>Ціна: {order.price ? `${order.price} грн` : distances[order.idOrder] ? `${calculatePrice(distances[order.idOrder])} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
                                 <Select
                                     value={selectedDrivers[order.idOrder] || null}
                                     onChange={selectedOption => handleDriverChange(selectedOption, order.idOrder)}
