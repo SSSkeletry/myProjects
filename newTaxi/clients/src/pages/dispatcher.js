@@ -61,7 +61,7 @@ const Dispatcher = observer(() => {
         }
     };
     return (
-        <div className='body-disp'>
+        <div className='body-work'>
         <div className="order-management">
         <div className="header-container">
                     <h1>Прийняти замовлення</h1>

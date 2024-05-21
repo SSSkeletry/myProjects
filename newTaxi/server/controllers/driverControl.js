@@ -77,6 +77,24 @@ class DriverController {
             return res.status(500).json({ message: 'Failed to fetch drivers' });
         }
     }
+    async updateAvailability(req, res, next) {
+        const { phone, isAvailable } = req.body;
+        try {
+            console.log(`Received request to update availability for phone: ${phone} to ${isAvailable}`);
+            const driver = await Driver.findOne({ where: { phone } });
+            if (!driver) {
+                console.log('Driver not found');
+                return next(ApiError.badRequest('Driver not found'));
+            }
+            driver.isAvailable = isAvailable;
+            await driver.save();
+            console.log(`Driver ${phone} availability updated to ${isAvailable}`);
+            return res.json(driver);
+        } catch (error) {
+            console.error('Error updating availability:', error);
+            return next(ApiError.internal('Failed to update availability'));
+        }
+    }
 }
 
 module.exports = new DriverController();

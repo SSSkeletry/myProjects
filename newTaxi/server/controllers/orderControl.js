@@ -99,6 +99,17 @@ class OrderController{
             return res.status(500).json({ message: 'Failed to assign driver' });
         }
     }
-    
+    async getDriverOrders(req, res) {
+        const { phone } = req.query;
+        try {
+            console.log(`Fetching orders for driver with phone: ${phone}`);
+            const orders = await Order.findAll({ where: { driverPhone: phone } });
+            console.log(`Found orders: ${orders.length}`);
+            return res.json(orders);
+        } catch (e) {
+            console.error("Error fetching driver orders:", e);
+            return res.status(500).json({ message: 'Failed to fetch driver orders' });
+        }
+    }
 }
 module.exports = new OrderController();

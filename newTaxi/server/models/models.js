@@ -32,6 +32,7 @@ const Driver = sequelize.define('driver',{
     phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
     rating: {type: DataTypes.CHAR},
     verified: { type: DataTypes.BOOLEAN, defaultValue: false },
+    isAvailable: {type: DataTypes.BOOLEAN, defaultValue: false},
     role: {type: DataTypes.STRING,defaultValue: 'DRIVER'}
 })
 
