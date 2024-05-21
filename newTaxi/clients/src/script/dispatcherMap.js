@@ -13,17 +13,16 @@ const center = {
 
 const libraries = ['places'];
 
-const OrderMap = ({ startPlace, endPlace, onDistanceCalculated }) => {
+const DispMap = ({ startPlace, endPlace }) => {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries
     });
     const [directions, setDirections] = useState(null);
-    const [distanceCalculated, setDistanceCalculated] = useState(false); // Добавим состояние для отслеживания расчета расстояния
 
     useEffect(() => {
         const loadDirections = async () => {
-            if (startPlace && endPlace && window.google && !distanceCalculated) {
+            if (startPlace && endPlace && window.google) {
                 const directionsService = new window.google.maps.DirectionsService();
                 directionsService.route(
                     {
@@ -34,11 +33,6 @@ const OrderMap = ({ startPlace, endPlace, onDistanceCalculated }) => {
                     (result, status) => {
                         if (status === window.google.maps.DirectionsStatus.OK) {
                             setDirections(result);
-                            const distanceInMeters = result.routes[0].legs[0].distance.value;
-                            const distanceInKm = distanceInMeters / 1000;
-                            console.log(`Distance from ${startPlace} to ${endPlace}: ${distanceInKm} km`); // Вывод в консоль
-                            onDistanceCalculated(distanceInKm); // Передача расстояния в родительский компонент
-                            setDistanceCalculated(true); // Устанавливаем состояние расчета расстояния
                         } else {
                             console.error(`Error fetching directions ${status}`);
                         }
@@ -50,7 +44,7 @@ const OrderMap = ({ startPlace, endPlace, onDistanceCalculated }) => {
         if (isLoaded) {
             loadDirections();
         }
-    }, [startPlace, endPlace, isLoaded, distanceCalculated, onDistanceCalculated]);
+    }, [startPlace, endPlace, isLoaded]);
 
     if (!isLoaded) return <div>Loading...</div>;
 
@@ -65,4 +59,4 @@ const OrderMap = ({ startPlace, endPlace, onDistanceCalculated }) => {
     );
 };
 
-export default OrderMap;
+export default DispMap;

@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../style/dispatcher.css';
-import OrderMap from '../script/orderMap';
+import DispMap from '../script/dispatcherMap';
 import { observer } from 'mobx-react-lite';
 import { getData } from '../http/userApi';
 
@@ -71,7 +71,7 @@ const Dispatcher = observer(() => {
                 {orders.length > 0 ? (
                     orders.map(order => (
                         <div key={order.id} className="order-card">
-                             <OrderMap startPlace={order.start_place} endPlace={order.end_place} />
+                             <DispMap startPlace={order.start_place} endPlace={order.end_place} />
                             <p>Номер телефона: {order.userPhone}</p>
                             <p>Місце відправки: {order.start_place}</p>
                             <p>Місце прибуття: {order.end_place}</p>

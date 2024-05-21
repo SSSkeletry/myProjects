@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import '../style/dispatcher.css'; // Убедитесь, что путь правильный
+import '../style/dispatcher.css';
 import OrderMap from '../script/orderMap';
 import { getData } from '../http/userApi';
 
@@ -10,6 +10,8 @@ const Order = () => {
     const [orders, setOrders] = useState([]);
     const [drivers, setDrivers] = useState([]);
     const [selectedDrivers, setSelectedDrivers] = useState({});
+    const [assignedOrders, setAssignedOrders] = useState({});
+    const [distances, setDistances] = useState({});
 
     useEffect(() => {
         const fetchPhoneNumber = async () => {
@@ -29,23 +31,38 @@ const Order = () => {
     }, []);
 
     useEffect(() => {
-        if (phone) {
-            const fetchOrders = async () => {
-                try {
-                    const apiUrl = process.env.REACT_APP_API_URL;
-                    const response = await axios.get(`${apiUrl}api/order/dispatcherOrders`, {
-                        params: { phone: phone }
-                    });
-                    const orderData = response.data;
-                    setOrders(orderData);
-                } catch (error) {
-                    console.error("Error fetching dispatcher orders:", error);
-                }
-            };
+        const fetchOrders = async () => {
+            try {
+                const apiUrl = process.env.REACT_APP_API_URL;
+                const response = await axios.get(`${apiUrl}api/order/dispatcherOrders`, {
+                    params: { phone }
+                });
+                const orderData = response.data;
+                setOrders(orderData);
 
+                // Восстановление состояния назначенных водителей
+                const assignedDrivers = {};
+                const assignedOrdersState = {};
+                orderData.forEach(order => {
+                    if (order.driverPhone) {
+                        const driver = drivers.find(driver => driver.phone === order.driverPhone);
+                        if (driver) {
+                            assignedDrivers[order.idOrder] = { value: driver.phone, label: `${driver.firstName} ${driver.lastName}` };
+                            assignedOrdersState[order.idOrder] = true;
+                        }
+                    }
+                });
+                setSelectedDrivers(assignedDrivers);
+                setAssignedOrders(assignedOrdersState);
+            } catch (error) {
+                console.error("Error fetching dispatcher orders:", error);
+            }
+        };
+
+        if (phone) {
             fetchOrders();
         }
-    }, [phone]);
+    }, [phone, drivers]);
 
     useEffect(() => {
         const fetchDrivers = async () => {
@@ -69,6 +86,13 @@ const Order = () => {
         }));
     };
 
+    const handleDistanceCalculated = (orderId, distance) => {
+        setDistances(prevDistances => ({
+            ...prevDistances,
+            [orderId]: distance
+        }));
+    };
+
     const assignDriver = async (orderId) => {
         try {
             const selectedDriver = selectedDrivers[orderId];
@@ -77,33 +101,39 @@ const Order = () => {
                 return;
             }
 
+            const distanceInKm = distances[orderId];
+            if (!distanceInKm) {
+                alert("Distance not calculated yet.");
+                return;
+            }
+
             const apiUrl = process.env.REACT_APP_API_URL;
-            await axios.post(`${apiUrl}api/order/assignDriver`, { orderId, driverPhone: selectedDriver.value });
-            alert("Driver assigned successfully!");
-            // Обновление состояния заказов после назначения водителя
-            setOrders(prevOrders => 
-                prevOrders.map(order => 
-                    order.idOrder === orderId ? { ...order, driverPhone: selectedDriver.value } : order
-                )
-            );
+            await axios.post(`${apiUrl}/api/order/assignDriver`, { orderId, driverPhone: selectedDriver.value, price: distanceInKm });
+            setAssignedOrders(prevAssignedOrders => ({
+                ...prevAssignedOrders,
+                [orderId]: true
+            }));
+            alert(`Driver assigned successfully! Distance: ${distanceInKm} km`);
         } catch (error) {
             console.error("Error assigning driver:", error);
             alert("Failed to assign driver.");
         }
     };
 
-    const driverOptions = drivers.map(driver => ({
-        value: driver.phone,
-        label: `${driver.firstName} ${driver.lastName}`
-    }));
+    const driverOptions = drivers
+        .filter(driver => driver.isAvailable)
+        .map(driver => ({
+            value: driver.phone,
+            label: `${driver.firstName} ${driver.lastName}`
+        }));
 
     return (
         <div className='body-disp'>
             <div className="order-management">
-                <div className="header-container">
+                <header>
                     <h1>Мої прийняті замовлення</h1>
                     <h2>Диспетчер</h2>
-                </div>
+                </header>
                 <div className="orders">
                     {orders.length > 0 ? (
                         orders.map(order => (
@@ -114,6 +144,7 @@ const Order = () => {
                                 <p>Місце прибуття: {order.end_place}</p>
                                 <p>Початок замовлення: {order.start_time}</p>
                                 <p>Коментарі: {order.comment}</p>
+                                <p>Відстань: {distances[order.idOrder] ? `${distances[order.idOrder]} км` : 'Не встановлено'}</p> {/* Отображение расстояния */}
                                 <Select
                                     value={selectedDrivers[order.idOrder] || null}
                                     onChange={selectedOption => handleDriverChange(selectedOption, order.idOrder)}
@@ -121,9 +152,16 @@ const Order = () => {
                                     placeholder="Виберіть водія"
                                     className="custom-select"
                                     classNamePrefix="custom-select"
+                                    isDisabled={assignedOrders[order.idOrder]} // Блокировка select
                                 />
-                                <OrderMap startPlace={order.start_place} endPlace={order.end_place} />
-                                <button onClick={() => assignDriver(order.idOrder)}>Assign Driver</button>
+                                <OrderMap
+                                    startPlace={order.start_place}
+                                    endPlace={order.end_place}
+                                    onDistanceCalculated={(distance) => handleDistanceCalculated(order.idOrder, distance)}
+                                />
+                                <button onClick={() => assignDriver(order.idOrder)} disabled={assignedOrders[order.idOrder]}>
+                                    Assign Driver
+                                </button>
                             </div>
                         ))
                     ) : (
@@ -136,3 +174,4 @@ const Order = () => {
 };
 
 export default Order;
+
