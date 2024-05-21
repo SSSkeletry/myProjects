@@ -63,10 +63,10 @@ const Dispatcher = observer(() => {
     return (
         <div className='body-disp'>
         <div className="order-management">
-            <header>
-                <h1>Прийняття замовлень</h1>
-                <h2>Диспетчер</h2>
-            </header>
+        <div className="header-container">
+                    <h1>Прийняти замовлення</h1>
+                    <h2>Диспетчер</h2>
+                </div>
             <div className="orders">
                 {orders.length > 0 ? (
                     orders.map(order => (

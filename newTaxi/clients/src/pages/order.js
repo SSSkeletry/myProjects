@@ -93,8 +93,12 @@ const Order = () => {
     }));
 
     return (
-        <div className="order-page">
-            <h1>Accepted Orders</h1>
+        <div className='body-disp'>
+        <div className="order-management">
+        <div className="header-container">
+                    <h1>Мої прийняті замовлення</h1>
+                    <h2>Диспетчер</h2>
+                </div>
             <div className="orders">
                 {orders.length > 0 ? (
                     orders.map(order => (
@@ -121,6 +125,7 @@ const Order = () => {
                     <p>No orders accepted yet.</p>
                 )}
             </div>
+        </div>
         </div>
     );
 };
