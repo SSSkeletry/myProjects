@@ -1,4 +1,4 @@
-const {Order,User, sequelize } = require('../models/models')
+const {Order,User,Driver, sequelize } = require('../models/models')
 const bcrypt = require('bcrypt');
 
 class OrderController{
@@ -112,6 +112,69 @@ class OrderController{
         } catch (e) {
             console.error("Error fetching driver orders:", e);
             return res.status(500).json({ message: 'Failed to fetch driver orders' });
+        }
+    }
+    async completeOrder(req, res, next) {
+        const { orderId } = req.body;
+        try {
+            const order = await Order.findByPk(orderId);
+            if (!order) {
+                return next(ApiError.badRequest('Order not found'));
+            }
+
+            const driver = await Driver.findOne({ where: { phone: order.driverPhone } });
+            if (!driver) {
+                return next(ApiError.badRequest('Driver not found'));
+            }
+            
+            order.end_time = new Date(); // Установить текущее время
+            await order.save();
+
+            return res.json(order);
+        } catch (error) {
+            console.error('Error completing order:', error);
+            return next(ApiError.internal('Failed to complete order'));
+        }
+    }
+    async completeOrderWithRating(req, res, next) {
+        const { orderId, tripRate } = req.body;
+        try {
+            const order = await Order.findByPk(orderId);
+            if (!order) {
+                return next(ApiError.badRequest('Order not found'));
+            }
+
+            const driver = await Driver.findOne({ where: { phone: order.driverPhone } });
+            if (!driver) {
+                return next(ApiError.badRequest('Driver not found'));
+            }
+
+            // Завершение заказа
+            order.end_time = new Date();
+            order.trip_rate = tripRate;
+            await order.save();
+
+            // Обновление рейтинга водителя
+            const currentRating = parseFloat(driver.rating || 0);
+            const numberOfRatings = parseInt(driver.numberOfTrips || 0);
+            const newRating = (currentRating * numberOfRatings + parseFloat(tripRate)) / (numberOfRatings + 1);
+
+            driver.numberOfTrips = numberOfRatings + 1;
+            driver.rating = newRating.toFixed(2); // Ограничение до 2 знаков после запятой
+            await driver.save();
+            if (order) {
+                await order.update({
+                  status: 'Завершено'
+                });
+            
+                console.log('Order status updated to Завершено.');
+              } else {
+                console.log('Order not found.');
+              }
+            return res.json(order);
+        } catch (error) {
+            console.error('Error completing order with rating:', error);
+            return next(ApiError.internal('Failed to complete order with rating'));
         }
     }
 }

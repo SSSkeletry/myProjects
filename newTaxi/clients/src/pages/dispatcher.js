@@ -19,7 +19,7 @@ const Dispatcher = observer(() => {
                 const response = await axios.get(`${apiUrl}api/order/getall`);
                 const orderData = response.data;
                 if (Array.isArray(orderData)) {
-                    setOrders(orderData.filter(order => order.status !== 'У виконанні'));
+                    setOrders(orderData.filter(order => order.status !== 'У виконанні'&& order.status !== 'Завершено'));
                 } else {
                     console.error("Unexpected response format:", orderData);
                 }

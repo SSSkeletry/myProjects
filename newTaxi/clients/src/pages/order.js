@@ -12,6 +12,7 @@ const Order = () => {
     const [selectedDrivers, setSelectedDrivers] = useState({});
     const [assignedOrders, setAssignedOrders] = useState({});
     const [distances, setDistances] = useState({});
+    const [tripRates, setTripRates] = useState({});
 
     const BASE_RATE = 50; // Базовая ставка в гривнах
     const PRICE_PER_KM = 10; // Цена за километр в гривнах
@@ -129,12 +130,42 @@ const Order = () => {
         }
     };
 
+    const completeOrder = async (orderId) => {
+        const tripRate = tripRates[orderId];
+        if (!tripRate) {
+            alert("Please set a trip rate before completing the order.");
+            return;
+        }
+
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            await axios.post(`${apiUrl}api/order/completeOrderWithRating`, { orderId, tripRate });
+            alert('Order completed successfully!');
+            setOrders(prevOrders => prevOrders.filter(order => order.idOrder !== orderId));
+        } catch (error) {
+            console.error('Error completing order:', error);
+            alert('Failed to complete order.');
+        }
+    };
+
+    const handleTripRateChange = (orderId, value) => {
+        setTripRates(prevTripRates => ({
+            ...prevTripRates,
+            [orderId]: value
+        }));
+    };
+
     const driverOptions = drivers
         .filter(driver => driver.isAvailable)
         .map(driver => ({
             value: driver.phone,
             label: `${driver.firstName} ${driver.lastName}`
         }));
+
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    };
 
     return (
         <div className='body-disp'>
@@ -151,7 +182,8 @@ const Order = () => {
                                 <p>Номер телефона: {order.userPhone}</p>
                                 <p>Місце відправки: {order.start_place}</p>
                                 <p>Місце прибуття: {order.end_place}</p>
-                                <p>Початок замовлення: {order.start_time}</p>
+                                <p>Початок замовлення: {formatDateTime(order.start_time)}</p> {/* Отображение форматированной даты */}
+                                <p>Завершення замовлення: {order.end_time ? formatDateTime(order.end_time) : 'Не завершено'}</p> {/* Отображение времени завершения */}
                                 <p>Коментарі: {order.comment}</p>
                                 <p>Відстань: {distances[order.idOrder] ? `${distances[order.idOrder]} км` : 'Не встановлено'}</p>
                                 <p>Ціна: {order.price ? `${order.price} грн` : distances[order.idOrder] ? `${calculatePrice(distances[order.idOrder])} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
@@ -162,20 +194,35 @@ const Order = () => {
                                     placeholder="Виберіть водія"
                                     className="custom-select"
                                     classNamePrefix="custom-select"
-                                    isDisabled={assignedOrders[order.idOrder]} // Блокировка select
+                                    isDisabled={assignedOrders[order.idOrder]}
                                 />
                                 <OrderMap
                                     startPlace={order.start_place}
                                     endPlace={order.end_place}
                                     onDistanceCalculated={(distance) => handleDistanceCalculated(order.idOrder, distance)}
                                 />
+                                <div>
+                                    <label>Оцінка поїздки:</label>
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max="5"
+                                        step="0.25"
+                                        value={tripRates[order.idOrder] || 1}
+                                        onChange={(e) => handleTripRateChange(order.idOrder, e.target.value)}
+                                    />
+                                    <span>{tripRates[order.idOrder] || 1}</span>
+                                </div>
                                 <button onClick={() => assignDriver(order.idOrder)} disabled={assignedOrders[order.idOrder]}>
-                                    Assign Driver
+                                    Призначити водія
+                                </button>
+                                <button onClick={() => completeOrder(order.idOrder)}>
+                                    Завершити замовлення
                                 </button>
                             </div>
                         ))
                     ) : (
-                        <p>No orders accepted yet.</p>
+                        <p>Замовлень ще немає, зачекайте будь ласка</p>
                     )}
                 </div>
             </div>

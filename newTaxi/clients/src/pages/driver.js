@@ -69,6 +69,24 @@ const Driver = observer(() => {
         }
     };
 
+    const completeOrder = async (orderId) => {
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            const response = await axios.post(`${apiUrl}api/order/completeOrder`, { orderId });
+            const updatedOrder = response.data;
+            setOrders(prevOrders => prevOrders.filter(order => order.idOrder !== orderId));
+            alert('Замовлення завершено успішно');
+        } catch (error) {
+            console.error('Error completing order:', error.response ? error.response.data : error.message);
+            alert('Не вдалося завершити замовлення');
+        }
+    };
+
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    };
+
     return (
         <div className='body-work'>
             <div className="order-management">
@@ -81,14 +99,18 @@ const Driver = observer(() => {
                 </button>
                 <div className="orders">
                     {orders.length > 0 ? (
-                        orders.map(order => (
+                        orders.filter(order => !order.end_time).map(order => (
                             <div key={order.idOrder} className="order-card">
                                 <DriverMap startPlace={order.start_place} endPlace={order.end_place} />
                                 <p>Номер телефона: {order.userPhone}</p>
                                 <p>Місце відправки: {order.start_place}</p>
                                 <p>Місце прибуття: {order.end_place}</p>
-                                <p>Початок замовлення: {order.start_time}</p>
+                                <p>Початок замовлення: {formatDateTime(order.start_time)}</p> {/* Отображение форматированной даты */}
                                 <p>Коментарі: {order.comment}</p>
+                                <p>Ціна: {order.price ? `${order.price} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
+                                <button onClick={() => completeOrder(order.idOrder)}>
+                                    Завершити замовлення
+                                </button>
                             </div>
                         ))
                     ) : (
