@@ -2,17 +2,22 @@ const sequelize = require('../database')
 const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user',{
-    email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
+    email: {type: DataTypes.STRING,unique: true,allowNull:false},
     password: {type: DataTypes.STRING},
-    phone: {type: DataTypes.CHAR,unique: true},
-    role: {type: DataTypes.STRING,defaultValue: 'USER'}
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },  
+    phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
+    role: {type: DataTypes.STRING,defaultValue: 'USER'},
+    isTemporary: {type: DataTypes.BOOLEAN, defaultValue: false}
 })
 
 const Car = sequelize.define('car',{
     number_car: {type: DataTypes.STRING,primaryKey: true,allowNull:false},
-    name_car: {type: DataTypes.CHAR,allowNull:false},
+    name_car: {type: DataTypes.STRING,allowNull:false},
     class_car: {type: DataTypes.CHAR,allowNull:false},
+    isCompanyCar: { type: DataTypes.BOOLEAN, defaultValue: false },
     img: {type: DataTypes.STRING,allowNull:false}
+    
 })
 const CarInfo = sequelize.define('car_info',{
     number_car: {type: DataTypes.STRING, primaryKey: true, allowNull:false},
@@ -20,18 +25,26 @@ const CarInfo = sequelize.define('car_info',{
     description: {type: DataTypes.STRING, allowNull:false}
 })
 const Driver = sequelize.define('driver',{
-    email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
+    email: {type: DataTypes.STRING,unique: true,allowNull:false},
     password: {type: DataTypes.STRING},
-    phone: {type: DataTypes.CHAR,unique: true},
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },  
+    phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
     rating: {type: DataTypes.CHAR},
+    numberOfTrips: { type: DataTypes.INTEGER, defaultValue: 0 },
+    verified: { type: DataTypes.BOOLEAN, defaultValue: false },
+    isAvailable: {type: DataTypes.BOOLEAN, defaultValue: false},
     role: {type: DataTypes.STRING,defaultValue: 'DRIVER'}
 })
 
 const Dispatcher = sequelize.define('dispatcher',{
-    email: {type: DataTypes.STRING,primaryKey: true,unique: true,allowNull:false},
+    email: {type: DataTypes.STRING,unique: true,allowNull:false},
     password: {type: DataTypes.STRING},
-    phone: {type: DataTypes.CHAR,unique: true},
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },  
+    phone: {type: DataTypes.CHAR(15),primaryKey: true,unique: true},
     warning: {type: DataTypes.CHAR},
+    verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     role: {type: DataTypes.STRING,defaultValue: 'DISPATCHER'}
 })
 const Order = sequelize.define('order',{
@@ -42,12 +55,13 @@ const Order = sequelize.define('order',{
     start_place: {type: DataTypes.STRING, allowNull:false},
     end_place: {type: DataTypes.STRING, allowNull:false},
     price: {type: DataTypes.CHAR},
-    complete: {type: DataTypes.STRING}
+    status: {type: DataTypes.STRING,defaultValue: 'В очікуванні'},
+    comment: { type: DataTypes.STRING }
 })
 
 //---------Connections--------//
-Car.hasMany(Driver);
-Driver.belongsTo(Car)
+Car.hasOne(Driver);
+Driver.belongsTo(Car);
 
 User.hasMany(Order);
 Driver.hasMany(Order);
@@ -66,5 +80,3 @@ module.exports = {
     Driver,
     Order
 }
-
-

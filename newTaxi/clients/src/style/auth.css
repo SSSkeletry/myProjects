@@ -1,0 +1,113 @@
+.auth {
+    font-family: 'Roboto Condensed', sans-serif;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/auth.jpg');
+    background-size: 70vw 62.1vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed; /* Фиксируем фон на месте */
+    position: fixed; /* Закрепляем .auth на всем экране */
+    left: 0;
+    background-color: white;
+}
+.auth h1{
+    margin-left:2%;
+    padding-top:8%;
+    text-align: center;
+    background: linear-gradient(to bottom, white 70%, #7facdd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size:4.5vw
+}
+.input-container {
+        position: relative;
+        text-align: center; /* Выравниваем содержимое по центру */
+        margin-left:26vw;
+        margin-top: 6vw; /* Отступ между заголовком и инпутами */
+        max-width: 50%; /* Максимальная ширина контейнера */
+        min-width: 50%; /* Минимальная ширина контейнера */
+}
+  .round-input{
+    width: 30vw;
+    padding: 1vw;
+    border-radius: 2vw;
+    border: 1px solid #000000;
+    outline: none;
+    margin: 1vw auto;
+    font-family: 'Roboto Condensed', sans-serif;
+    display: block;
+    font-size: 1.2vw;
+    color: #012a46;
+  }
+  
+  .round-input::placeholder,
+  .round-input::-webkit-input-placeholder {
+    color: #9bb7cb;
+  }
+  .round-button {
+    font-size: 1.2vw;
+    width: 44%;
+    padding: 1vw;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    outline: none;
+    transition: background-color 0.4s, color 0.4s,text-shadow 0.3s;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+}
+.button-left {
+    background-color: #fade71;
+    z-index: 2;
+    margin-right: -13vw;
+    text-align:right;
+    padding-right: 4vw;
+    
+}
+.button-right {
+    background-color: #81adde;
+    margin-left: -20px; /* Отрицательный отступ для перекрытия кнопок */
+    text-align:right;
+}
+.button-left-reg {
+    background-color: #81adde;
+    z-index: 2;
+    margin-right: -13vw; 
+    text-align:right;
+    padding-right: 4vw;
+    
+}
+.round-button:hover {
+  text-shadow: 0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.5);
+}
+.button-right-reg {
+    background-color: #fade71;
+    margin-left: -20px; 
+    text-align:right;
+    padding-right:1.5vw;
+}
+.round-input::placeholder {
+  color: #9bb7cb;
+  opacity: 1;
+}
+
+.round-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #9bb7cb;
+}
+
+.round-input::-moz-placeholder { /* Firefox 19+ */
+  color: #9bb7cb;
+  opacity: 1;
+}
+
+.round-input:-ms-input-placeholder { /* IE 10+ */
+  color: #9bb7cb;
+}
+
+.round-input:-moz-placeholder { /* Firefox 18- */
+  color: #9bb7cb;
+  opacity: 1;
+}

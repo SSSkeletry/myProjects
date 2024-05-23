@@ -4,15 +4,15 @@ body{
     height: 100%;
     width: 100%;
     overflow: auto;
-    
+    background-color: #fff0bc;
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow-x: hidden;
 }
 .main{
     width: 100%; 
     height: 100%;
-    background-image: url('../assets/main-page.jpg');
+    background: url('../assets/main-page.jpg') center/cover no-repeat;
     background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
     font-family: 'Roboto Condensed', sans-serif;
     top: 0;
     left: 0;
@@ -37,13 +37,11 @@ body{
     font-weight: 700;
     color:#012a46;
     font-size: 5vw;
-    margin-bottom:20px
+    margin-bottom:1vw;
 }
 .main-text h2{
-
   font-weight: 700;
   color:#012a46;
-  font-size: 10px;
   white-space: normal; /* Дозволяє тексту переходити на новий рядок */
   word-wrap: break-word; /* Переносить довгі слова на новий рядок, якщо вони не поміщаються в один рядок */
   text-align:center;
@@ -52,7 +50,8 @@ body{
 
 /*-------------------PopUp--------------------*/
 input::placeholder {
-    opacity: 0;
+    opacity: 1;
+    font-family: 'Roboto Condensed', sans-serif;
   }
   
  /* Приховує плейсхолдер тільки для конкретних інпутів */
@@ -91,7 +90,7 @@ input::placeholder {
       display:flex;
       align-items:center;
       justify-content: center;
-      padding:10px 10px;
+      padding:1vw 1vw;
     }
     .popup:target .popup-cont{
       animation: appearancePopUp 2s 1;
@@ -100,8 +99,8 @@ input::placeholder {
     .popup-cont{
       background-color: #fff;
       color: black;
-      max-width: 800px;
-      padding:45px 45px 15px;
+      max-width: 50vw;
+      padding:1vw 3vw 1.1vw;
       position: relative;
       transition: all 0.8s ease 0s;
       opacity: 0;
@@ -109,19 +108,18 @@ input::placeholder {
     }
     .popup-close{
       position: absolute;
-      right:10px;
-      top:10px;
-      font-size:20px;
+      right:0.7vw;
+      top:0.7vw;
+      font-size:1.5vw;
       color: black;
       text-decoration: none;
     }
     .order-header{
-      font-size:35px;
-      padding:2;
-      margin-bottom: 20px;
+      font-size:2.3vw;
+      padding-bottom: 1.3vw;
     }
     .order-data div{
-      margin-bottom: 30px;
+      margin-bottom: 1.95vw;
     }
     .popup-area{
       position: absolute;
@@ -131,15 +129,15 @@ input::placeholder {
       left:0;
       
     }
-    .popup button{
+    .popup-button{
       text-decoration: none;
       display: inline;
-      line-height: 40px;
-      padding: 0px 20px;
+      line-height: 2.6vw;
+      padding: 0 1.5vw;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size:18px;
-      border-radius: 10px;
+      letter-spacing: 0.2vw;
+      font-size:1.15vw;
+      border-radius: 0.5vw;
       top:0;
       position: relative;
       color: white;
@@ -147,8 +145,8 @@ input::placeholder {
       box-shadow: 0 5px 0px white;
       transition-duration: 0.5s;
     }
-    .popup button:hover{
-      top:2px;
+    .popup-button:hover{
+      top:0.5vw;
       color:black;
       box-shadow: 0 3px 0px black;
       background-color: rgba(0, 255, 255, 0.689);
@@ -160,19 +158,17 @@ input::placeholder {
     }
     @keyframes appearancePopUp {
       0% {
-        -webkit-transform: scale(0.5, 0.5);
-        transform: scale(0.5, 0.5)
+        transform: scale(0.5);
       }
       50% {
-        -webkit-transform: scale(1.0, 1.0);
-        transform: scale(1.0, 1.0);
+        transform: scale(1);
       }
     }
     .label-box input {
       width: 100%;
-      padding: 5px;
+      padding: 0.33vw;
       box-sizing: border-box;
-      font-size: 18px;
+      font-size: 1.16vw;
       border: none;
       border-bottom: 1px solid #757575;
   }
@@ -180,7 +176,7 @@ input::placeholder {
       position: absolute;
       top: 0;
       left: 0;
-      font-size: 18px;
+      font-size: 1.16vw;
       pointer-events: none;
       color: #757575;
       transition: 0.2s ease all;
@@ -188,49 +184,79 @@ input::placeholder {
   }
   .label-box input:focus + label,
   .label-box input:valid + label {
-      font-size: 14px;
-      transform: translateY(-20px);
+      font-size: 1.16vw;
+      transform: translateY(-1.6vw);
   }
     .label-box {
       position: relative;
-      width: 270px;
+      width: 15vw;
     }
+    #notfill, #filled {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-out; /* Анимация появления */
+      box-shadow: 0 3px 0px;
+      visibility: hidden; /* По умолчанию скрыты */
+      opacity: 0; /* По умолчанию скрыты */
+      transition: visibility 0s, opacity 0.5s linear; /* Плавный переход */
+      z-index: 1001; /* Повыше затемненного фона */
+    }
+    
+    #notfill {
+      box-shadow: 0 3px 0px red;
+    }
+    
+    #filled {
+      box-shadow: 0 3px 0px rgb(0, 150, 0);
+    }
+    
+    #notfill.visible, #filled.visible {
+      visibility: visible; /* Отображаются при добавлении класса visible */
+      opacity: 1; /* Отображаются при добавлении класса visible */
+    }
+    
     #shadow {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #000;
-      opacity: 0.3;
-      display: none;
+      background: rgba(0, 0, 0, 0.5); /* Затемненный фон */
+      z-index: 1000; /* Позади сообщений */
+      visibility: hidden; /* По умолчанию скрыт */
+      opacity: 0; /* По умолчанию скрыт */
+      transition: visibility 0s, opacity 0.5s linear; /* Плавный переход */
     }
-    #notfill {
-      position: absolute;
-      top: 40%;
-      left: 10%;
-      right: 10%;
-      background: #fff;
-      border-radius: 5px;
-      padding: 10px;
-      display: none;
-      text-align: center;
-      animation: appearancePopUp 2s 1;
-      box-shadow: 0 3px 0px red;
+    
+    #shadow.visible {
+      visibility: visible; /* Отображается при добавлении класса visible */
+      opacity: 1; /* Отображается при добавлении класса visible */
     }
-    #filled {
-      position: absolute;
-      top: 40%;
-      left: 10%;
-      right: 10%;
-      background: #fff;
-      border-radius: 5px;
-      padding: 10px;
-      display: none;
-      text-align: center;
-      animation: appearancePopUp 2s 1;
-      box-shadow: 0 3px 0px rgb(0, 150, 0);
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
+    
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -264,7 +290,7 @@ input::placeholder {
     }
     
     .main-text button:hover span {
-      padding-right: 25px;
+      padding-right: 2vw;
     }
     
     .main-text button:hover span:after {

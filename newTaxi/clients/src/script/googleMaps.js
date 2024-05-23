@@ -1,4 +1,4 @@
-export function initMap(google) {
+export function initMap(google, setStartPlace, setEndPlace) {
     var map, directionsService, directionsRenderer;
     var markerLocation = null;
     var markerArrival = null;
@@ -53,6 +53,11 @@ export function initMap(google) {
             map.setCenter(location);
             map.setZoom(17);
             addMarker(location, isLocation);
+            if (isLocation) {
+                setStartPlace(place.formatted_address);
+            } else {
+                setEndPlace(place.formatted_address);
+            }
             calculateAndDisplayRoute();
         });
     }
@@ -74,6 +79,11 @@ export function initMap(google) {
                     var fullAddress = results[0].formatted_address;
                     var addressWithoutPlusCode = fullAddress.replace(/^[^\s]+ /, '');
                     document.getElementById(isLocation ? 'loc' : 'arrival').value = addressWithoutPlusCode;
+                    if (isLocation) {
+                        setStartPlace(addressWithoutPlusCode);
+                    } else {
+                        setEndPlace(addressWithoutPlusCode);
+                    }
                     calculateAndDisplayRoute();
                 }
             }
