@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import '../style/dispatcher.css';
+import '../style/order.css';
 import OrderMap from '../script/orderMap';
 import { getData } from '../http/userApi';
 
@@ -51,7 +51,7 @@ const Order = () => {
                     if (order.driverPhone) {
                         const driver = drivers.find(driver => driver.phone === order.driverPhone);
                         if (driver) {
-                            assignedDrivers[order.idOrder] = { value: driver.phone, label: `${driver.firstName} ${driver.lastName}` };
+                            assignedDrivers[order.idOrder] = { value: driver.phone, label: `${driver.firstName} ${driver.lastName} (Рейтинг: ${driver.rating}, Авто: ${driver.car ? driver.car.name_car : 'Не призначено'})` };
                             assignedOrdersState[order.idOrder] = true;
                         }
                     }
@@ -98,20 +98,20 @@ const Order = () => {
     };
 
     const calculatePrice = (distanceInKm) => {
-        return BASE_RATE + (PRICE_PER_KM * distanceInKm);
+        return (BASE_RATE + (PRICE_PER_KM * distanceInKm)).toFixed(2);
     };
 
     const assignDriver = async (orderId) => {
         try {
             const selectedDriver = selectedDrivers[orderId];
             if (!selectedDriver) {
-                alert("Please select a driver first.");
+                alert("Спершу виберіть подія");
                 return;
             }
 
             const distanceInKm = distances[orderId];
             if (!distanceInKm) {
-                alert("Distance not calculated yet.");
+                alert("Дистанція ще не була порахована");
                 return;
             }
 
@@ -123,28 +123,28 @@ const Order = () => {
                 ...prevAssignedOrders,
                 [orderId]: true
             }));
-            alert(`Driver assigned successfully! Distance: ${distanceInKm} km, Price: ${price} грн`);
+            alert(`Водій успішно призначен! Дистанція: ${distanceInKm} км, Ціна: ${price} грн`);
         } catch (error) {
             console.error("Error assigning driver:", error);
-            alert("Failed to assign driver.");
+            alert("Не вдалося призначити водія");
         }
     };
 
     const completeOrder = async (orderId) => {
         const tripRate = tripRates[orderId];
         if (!tripRate) {
-            alert("Please set a trip rate before completing the order.");
+            alert("Будь ласка, перед завершенням замовлення оцініть поїздку!");
             return;
         }
 
         try {
             const apiUrl = process.env.REACT_APP_API_URL;
             await axios.post(`${apiUrl}api/order/completeOrderWithRating`, { orderId, tripRate });
-            alert('Order completed successfully!');
+            alert('Замовлення успішно завершено!');
             setOrders(prevOrders => prevOrders.filter(order => order.idOrder !== orderId));
         } catch (error) {
             console.error('Error completing order:', error);
-            alert('Failed to complete order.');
+            alert('Не вдалося завершити замовлення.');
         }
     };
 
@@ -159,7 +159,7 @@ const Order = () => {
         .filter(driver => driver.isAvailable)
         .map(driver => ({
             value: driver.phone,
-            label: `${driver.firstName} ${driver.lastName}`
+            label: `${driver.firstName} ${driver.lastName} (Рейтинг: ${driver.rating ? driver.rating : 'Немає'}, Авто: ${driver.car ? driver.car.name_car : 'Не призначено'})`
         }));
 
     const formatDateTime = (dateString) => {
@@ -168,9 +168,9 @@ const Order = () => {
     };
 
     return (
-        <div className='body-disp'>
+        <div className='body-work'>
             <div className="order-management">
-                <header>
+                 <header className="header-container">
                     <h1>Мої прийняті замовлення</h1>
                     <h2>Диспетчер</h2>
                 </header>
@@ -186,7 +186,7 @@ const Order = () => {
                                 <p>Завершення замовлення: {order.end_time ? formatDateTime(order.end_time) : 'Не завершено'}</p> {/* Отображение времени завершения */}
                                 <p>Коментарі: {order.comment}</p>
                                 <p>Відстань: {distances[order.idOrder] ? `${distances[order.idOrder]} км` : 'Не встановлено'}</p>
-                                <p>Ціна: {order.price ? `${order.price} грн` : distances[order.idOrder] ? `${calculatePrice(distances[order.idOrder])} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
+                                <p>Ціна: {order.price ? `${parseFloat(order.price).toFixed(2)} грн` : distances[order.idOrder] ? `${calculatePrice(distances[order.idOrder])} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
                                 <Select
                                     value={selectedDrivers[order.idOrder] || null}
                                     onChange={selectedOption => handleDriverChange(selectedOption, order.idOrder)}
@@ -210,19 +210,22 @@ const Order = () => {
                                         step="0.25"
                                         value={tripRates[order.idOrder] || 1}
                                         onChange={(e) => handleTripRateChange(order.idOrder, e.target.value)}
+                                        className="custom-slider"
                                     />
-                                    <span>{tripRates[order.idOrder] || 1}</span>
+                                    <span>{tripRates[order.idOrder] || 0}</span>
                                 </div>
-                                <button onClick={() => assignDriver(order.idOrder)} disabled={assignedOrders[order.idOrder]}>
-                                    Призначити водія
-                                </button>
-                                <button onClick={() => completeOrder(order.idOrder)}>
-                                    Завершити замовлення
-                                </button>
+                                <div className="button-container-order">
+                                    <button className="assign-driver-button" onClick={() => assignDriver(order.idOrder)} disabled={assignedOrders[order.idOrder]}>
+                                        Призначити водія
+                                    </button>
+                                    <button className="complete-order-button" onClick={() => completeOrder(order.idOrder)}>
+                                        Завершити замовлення
+                                    </button>
+                                </div>
                             </div>
                         ))
                     ) : (
-                        <p>Замовлень ще немає, зачекайте будь ласка</p>
+                        <p>Ви ще не прийняли замовлення</p>
                     )}
                 </div>
             </div>
@@ -231,4 +234,3 @@ const Order = () => {
 };
 
 export default Order;
-

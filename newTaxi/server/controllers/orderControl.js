@@ -46,7 +46,7 @@ class OrderController{
             const orders = await Order.findAll();
             return res.json(orders);
         } catch (e) {
-            return res.status(500).json({ message: 'Failed to fetch orders' });
+            return res.status(500).json({ message: 'Не вдалося отримати замовлення' });
         }
     }
 
@@ -56,7 +56,7 @@ class OrderController{
             const orders = await Order.findAll({ where: { dispatcherPhone: phone,status: 'У виконанні' } });
             return res.json(orders);
         } catch (e) {
-            return res.status(500).json({ message: 'Failed to fetch dispatcher orders' });
+            return res.status(500).json({ message: 'Не вдалося отримати замовлення диспетчера' });
         }
     }
     async accept(req, res) {
@@ -67,17 +67,17 @@ class OrderController{
             const order = await Order.findByPk(orderId);
             if (!order) {
                 console.log("Order not found for ID:", orderId); // Логирование случая, когда заказ не найден
-                return res.status(404).json({ message: 'Order not found' });
+                return res.status(404).json({ message: 'Замовлення не знайдено' });
             }
             order.status = 'У виконанні';
             order.dispatcherPhone = dispatcherPhone;
             order.start_time = currentTime;
             await order.save();
             console.log("Order accepted:", order); // Логирование принятого заказа
-            return res.json({ message: 'Order accepted successfully' });
+            return res.json({ message: 'Замовлення прийнято' });
         } catch (e) {
             console.error("Error in accept controller:", e); // Логирование ошибки
-            return res.status(500).json({ message: 'Failed to accept order' });
+            return res.status(500).json({ message: 'Помилка прийняття замовлення' });
         }
     }
     async assignDriver(req, res) {
@@ -85,21 +85,21 @@ class OrderController{
             const { orderId, driverPhone,price } = req.body;
             console.log("Assigning driver:", driverPhone, "to order:", orderId); // Логирование назначения водителя
             if (price === undefined) {
-                return next(ApiError.badRequest('Price not provided'));
+                return next(ApiError.badRequest('Ціна не вказана'));
             }
             const order = await Order.findByPk(orderId);
             if (!order) {
                 console.log("Order not found for ID:", orderId);
-                return res.status(404).json({ message: 'Order not found' });
+                return res.status(404).json({ message: 'Замовлення не знайдено' });
             }
             order.driverPhone = driverPhone; // Назначение водителя заказу
             order.price = price;
             await order.save();
             console.log("Driver assigned:", order);
-            return res.json({ message: 'Driver assigned successfully', order });
+            return res.json({ message: 'Водія був призначений', order });
         } catch (e) {
             console.error("Error in assignDriver controller:", e);
-            return res.status(500).json({ message: 'Failed to assign driver' });
+            return res.status(500).json({ message: 'Не вдалося призначити водія' });
         }
     }
     async getDriverOrders(req, res) {
@@ -111,7 +111,7 @@ class OrderController{
             return res.json(orders);
         } catch (e) {
             console.error("Error fetching driver orders:", e);
-            return res.status(500).json({ message: 'Failed to fetch driver orders' });
+            return res.status(500).json({ message: 'Не вдалося отримати замовлення водія' });
         }
     }
     async completeOrder(req, res, next) {
@@ -119,12 +119,12 @@ class OrderController{
         try {
             const order = await Order.findByPk(orderId);
             if (!order) {
-                return next(ApiError.badRequest('Order not found'));
+                return next(ApiError.badRequest('Замовлення не знайдено'));
             }
 
             const driver = await Driver.findOne({ where: { phone: order.driverPhone } });
             if (!driver) {
-                return next(ApiError.badRequest('Driver not found'));
+                return next(ApiError.badRequest('Водія не знайдено'));
             }
             
             order.end_time = new Date(); // Установить текущее время
@@ -133,7 +133,7 @@ class OrderController{
             return res.json(order);
         } catch (error) {
             console.error('Error completing order:', error);
-            return next(ApiError.internal('Failed to complete order'));
+            return next(ApiError.internal('Помилка прийняття замовлення'));
         }
     }
     async completeOrderWithRating(req, res, next) {
@@ -141,12 +141,12 @@ class OrderController{
         try {
             const order = await Order.findByPk(orderId);
             if (!order) {
-                return next(ApiError.badRequest('Order not found'));
+                return next(ApiError.badRequest('Замовлення не знайдено'));
             }
 
             const driver = await Driver.findOne({ where: { phone: order.driverPhone } });
             if (!driver) {
-                return next(ApiError.badRequest('Driver not found'));
+                return next(ApiError.badRequest('Водія не знайдено'));
             }
 
             // Завершение заказа
@@ -160,7 +160,7 @@ class OrderController{
             const newRating = (currentRating * numberOfRatings + parseFloat(tripRate)) / (numberOfRatings + 1);
 
             driver.numberOfTrips = numberOfRatings + 1;
-            driver.rating = newRating.toFixed(2); // Ограничение до 2 знаков после запятой
+            driver.rating = newRating.toFixed(2); 
             await driver.save();
             if (order) {
                 await order.update({
@@ -174,7 +174,7 @@ class OrderController{
             return res.json(order);
         } catch (error) {
             console.error('Error completing order with rating:', error);
-            return next(ApiError.internal('Failed to complete order with rating'));
+            return next(ApiError.internal('Не вдалося виконати замовлення з оцінкою'));
         }
     }
 }

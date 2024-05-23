@@ -1,7 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../style/dispatcher.css';
+import '../style/order.css';
 import DispMap from '../script/dispatcherMap';
 import { observer } from 'mobx-react-lite';
 import { getData } from '../http/userApi';
@@ -52,12 +52,12 @@ const Dispatcher = observer(() => {
 
             const apiUrl = process.env.REACT_APP_API_URL;
             await axios.post(`${apiUrl}api/order/accept`, { orderId, dispatcherPhone: phone });
-            alert("Order accepted successfully!");
+            alert("Замовлення прийнято!");
             setOrders(orders.map(order => order.idOrder === orderId ? { ...order, status: 'У виконанні' } : order));
             navigate('/order'); // Перенаправление на страницу Order
         } catch (error) {
             console.error("Error accepting order:", error);
-            alert("Failed to accept order.");
+            alert("Помилка прийняття замовлення, спробуйте ще раз.");
         }
     };
     return (
@@ -80,7 +80,7 @@ const Dispatcher = observer(() => {
                         </div>
                     ))
                 ) : (
-                    <p>Ви ще не прийняли замовлення</p>
+                    <p>Замовлень ще немає,зачекайте будь ласка.</p>
                 )}
             </div>
         </div>

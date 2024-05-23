@@ -3,7 +3,7 @@ import axios from 'axios';
 import { observer } from 'mobx-react-lite';
 import { getData } from '../http/userApi';
 import DriverMap from '../script/driverMap';
-import '../style/driver.css';
+import '../style/order.css';
 import taxiInstance from '../main/singletonTaxi';
 
 const Driver = observer(() => {
@@ -94,29 +94,34 @@ const Driver = observer(() => {
                     <h1>Мої замовлення</h1>
                     <h2>Водій</h2>
                 </header>
-                <button onClick={toggleAvailability}>
-                    {taxiInstance.isAvailable ? 'Закінчити роботу' : 'Працювати'}
-                </button>
-                <div className="orders">
-                    {orders.length > 0 ? (
-                        orders.filter(order => !order.end_time).map(order => (
-                            <div key={order.idOrder} className="order-card">
-                                <DriverMap startPlace={order.start_place} endPlace={order.end_place} />
-                                <p>Номер телефона: {order.userPhone}</p>
-                                <p>Місце відправки: {order.start_place}</p>
-                                <p>Місце прибуття: {order.end_place}</p>
-                                <p>Початок замовлення: {formatDateTime(order.start_time)}</p> {/* Отображение форматированной даты */}
-                                <p>Коментарі: {order.comment}</p>
-                                <p>Ціна: {order.price ? `${order.price} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
-                                <button onClick={() => completeOrder(order.idOrder)}>
-                                    Завершити замовлення
-                                </button>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Замовлень немає, зачекайте будь ласка</p>
-                    )}
-                </div>
+                <div className="toggle-container">
+                        <button 
+                            className={`toggle-button btn-new  ${taxiInstance.isAvailable ? 'working' : 'not-working'}`} 
+                            onClick={toggleAvailability}
+                        >
+                            {taxiInstance.isAvailable ? 'Закінчити роботу' : 'Працювати'}
+                        </button>
+                    </div>
+                    <div className="orders">
+                        {orders.length > 0 && orders.some(order => !order.end_time) ? (
+                            orders.filter(order => !order.end_time).map(order => (
+                                <div key={order.idOrder} className="order-card">
+                                    <DriverMap startPlace={order.start_place} endPlace={order.end_place} />
+                                    <p>Номер телефона: {order.userPhone}</p>
+                                    <p>Місце відправки: {order.start_place}</p>
+                                    <p>Місце прибуття: {order.end_place}</p>
+                                    <p>Початок замовлення: {formatDateTime(order.start_time)}</p> {/* Отображение форматированной даты */}
+                                    <p>Коментарі: {order.comment}</p>
+                                    <p>Ціна: {order.price ? `${order.price} грн` : 'Не встановлено'}</p> {/* Отображение цены */}
+                                    <button className="complete-order-button" onClick={() => completeOrder(order.idOrder)}>
+                                        Завершити замовлення
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <p>Замовлень немає, зачекайте будь ласка</p>
+                        )}
+                    </div>
             </div>
         </div>
     );

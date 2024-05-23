@@ -70,11 +70,13 @@ class DriverController {
     }
     async getAll(req, res) {
         try {
-            const drivers = await Driver.findAll();
+            const drivers = await Driver.findAll({
+                include: [{ model: Car }]
+            });
             return res.json(drivers);
         } catch (e) {
             console.error("Error fetching drivers:", e);
-            return res.status(500).json({ message: 'Failed to fetch drivers' });
+            return res.status(500).json({ message: 'Не вдалося знайти водіїв' });
         }
     }
     async updateAvailability(req, res, next) {
@@ -84,15 +86,15 @@ class DriverController {
             const driver = await Driver.findOne({ where: { phone } });
             if (!driver) {
                 console.log('Driver not found');
-                return next(ApiError.badRequest('Driver not found'));
+                return next(ApiError.badRequest('Водія не знайдено'));
             }
             driver.isAvailable = isAvailable;
             await driver.save();
-            console.log(`Driver ${phone} availability updated to ${isAvailable}`);
+            console.log(`Доступність водія ${phone} стала ${isAvailable}`);
             return res.json(driver);
         } catch (error) {
             console.error('Error updating availability:', error);
-            return next(ApiError.internal('Failed to update availability'));
+            return next(ApiError.internal('Не вдалося оновити доступність'));
         }
     }
 }
