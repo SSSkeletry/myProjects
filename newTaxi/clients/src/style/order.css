@@ -1,0 +1,226 @@
+.body-work {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 4vw; /* Добавлено для отступов */
+    height: 100%; /* Заполнение всей страницы */
+    width: 100%; /* Заполнение всей ширины */
+    box-sizing: border-box; /* Учитывать отступы и границы */
+}
+.order-management {
+    width: 100%;
+    max-width: 100%; /* Увеличьте максимальную ширину контейнера до 100% */
+    margin: 3vw auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 3vw;
+    box-sizing: border-box;
+}
+
+.header-container {
+    background-color: #f0f0f0; /* Задайте нужный цвет фона */
+    padding: 0.9vw;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+}
+
+.header-container h1, .header-container h2 {
+    margin: 0;
+}
+
+.header-container h1 {
+    font-size: 2.5vw;
+    color: #333;
+}
+
+.header-container h2 {
+    font-size: 1.5vw;
+    color: #666;
+}
+
+
+.orders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Три колонки */
+    gap: 1.2vw; /* Отступы между карточками */
+    margin-top: 2vw;
+}
+
+.order-card {
+    background-color: #f9f9f9;
+    border-radius: 0.5vw;
+    padding: 1vw;
+    text-align: left;
+}
+
+.order-card h3 {
+    font-size: 1.1vw;
+    margin: 0;
+    color: #666;
+}
+
+.order-card p {
+    font-size: 1.1vw;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 0.5vw;
+}
+.order-card button {
+    background-color: #012a46;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* dispatcher.css */
+.custom-select__control {
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    padding: 0.2vw !important;
+    font-size: 1em !important;
+    background-color: #f9f9f9 !important;
+    transition: border-color 0.3s, box-shadow 0.3s !important;
+    margin-top: 1vw !important;
+    margin-bottom: 1vw !important;
+}
+
+.custom-select__option--is-selected.custom-select__option--is-focused {
+    background-color: #012a46 !important; /* Остается цвет выделенного элемента */
+    color: #fba707 !important;
+}
+
+
+.custom-select__menu {
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 11px rgba(0, 0, 0, 0.1) !important;
+    color:#012a46;
+}
+
+.custom-select__option {
+    padding: 10px !important;
+    font-size: 1em !important;
+    color: #333 !important;
+}
+
+.custom-select__option--is-selected {
+    background-color: #012a46 !important;
+    color: #fba707 !important;
+}
+
+.custom-select__option--is-focused {
+    background-color: #fba60785 !important;
+}
+
+.custom-select__single-value {
+    color: #333 !important;
+}
+
+.custom-select__placeholder {
+    color: #999 !important;
+}
+.custom-slider {
+    width: 100%;
+    margin: 10px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 0.4vw;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.custom-slider:hover {
+    opacity: 1;
+}
+
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.3vw;
+    height: 1.3vw;
+    background: #012a46;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.assign-driver-button {
+    background-color: #fba707 !important;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.assign-driver-button:disabled {
+    background-color: #ff0000 !important;
+    cursor: not-allowed;
+}
+
+.assign-driver-button:hover:not(:disabled) {
+    background-color: #45a049 !important; /* Более темный зеленый при наведении */
+    transform: scale(1.05);
+}
+
+.complete-order-button {
+    background-color: #F44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.complete-order-button:hover {
+    background-color: #d32f2f; /* Более темный красный при наведении */
+    transform: scale(1.05);
+}
+
+.button-container-order {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.toggle-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.toggle-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.toggle-button.working {
+    background-color: #F44336; /* Зеленый */
+    box-shadow: 0 5px 15px 0 #F44336;
+    transition: 0.5s;
+    color: white;
+}
+
+.toggle-button.not-working {
+    background-color: #45a049; /* Красный */
+    color: white;
+    transform: translate(0,-3px);
+    box-shadow: 0 20px 40px 0 #45a049;
+}
+
+.toggle-button:hover {
+    transform: scale(1.05);
+}
+
+
+

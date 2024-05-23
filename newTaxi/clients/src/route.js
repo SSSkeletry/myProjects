@@ -3,7 +3,9 @@ import Login from "./pages/login"
 import Profile from "./pages/profile"
 import Order from "./pages/order"
 import Taxi from "./pages/taxi"
-import { LOGIN_ROUTE, ORDER_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, TAXI_ROUTE, USER_ROUTE } from "./utils/consts";
+import Dispatcher from "./pages/dispatcher"
+import Driver from "./pages/driver"
+import { LOGIN_ROUTE, ORDER_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, TAXI_ROUTE, USER_ROUTE,DISPATCHER_ROUTE, DRIVER_ROUTE } from "./utils/consts";
 
 
 export const authRoutes = [
@@ -41,9 +43,27 @@ export const pubRoutes = [
 ]
 
 export const DispatcherRoutes = [
-    
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile,
+    },
+    {
+        path: ORDER_ROUTE,
+        Component: Order,
+    },
+    {
+        path: DISPATCHER_ROUTE,
+        Component: Dispatcher,
+    },
 ]
 
 export const driverRoutes = [
-    
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile,
+    },
+    {
+        path: DRIVER_ROUTE,
+        Component: Driver,
+    },
 ]
