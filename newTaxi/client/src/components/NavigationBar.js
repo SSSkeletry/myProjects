@@ -8,7 +8,6 @@ const NavigationBar = observer(() => {
     const { user, taxi, dispatcher } = useContext(Context);
     const navigate = useNavigate();
     const [isMiniNavbarVisible, setMiniNavbarVisible] = useState(false);
-    const [isMenuButtonMoved, setMenuButtonMoved] = useState(false);
     const [isNavbarHidden, setNavbarHidden] = useState(false);
 
     const logOut = () => {
