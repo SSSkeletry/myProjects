@@ -1,4 +1,6 @@
-const {Sequelize} = require('sequelize');
+require('dotenv').config();
+
+const { Sequelize } = require('sequelize');
 
 module.exports = new Sequelize(
     process.env.DB_NAME,
@@ -7,7 +9,12 @@ module.exports = new Sequelize(
     {
         dialect: 'postgres',
         host: process.env.DB_HOST,
-        port: process.env.DB_PORT
+        port: process.env.DB_PORT,
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false // Используйте это, если ваш сертификат не доверен
+            }
+        }
     }
-
-)
+);
